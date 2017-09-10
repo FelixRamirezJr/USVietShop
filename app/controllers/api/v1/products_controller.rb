@@ -8,7 +8,16 @@ module Api
       end
 
       def index
-        render json: { products: Product.all }
+        if params[:search] && !params[:search].empty?
+          if Rails.env.production?
+            @products = Product.pg_simple( params[:search] )
+          else
+            @products = Product.where( 'lower(name) like ?', params[:search] )
+          end
+        else
+          @products = Product.all
+        end
+        render json: { products: @products }
       end
 
     end

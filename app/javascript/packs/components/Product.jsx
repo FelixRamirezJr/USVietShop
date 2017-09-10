@@ -13,8 +13,8 @@ class Product extends React.Component {
       products: []
     }
   }
-  componentWillMount()
-  {
+
+  load_all_products = () => {
     fetch('/api/v1/products')
     .then((response) => response.json())
     .then((json) => {
@@ -28,6 +28,31 @@ class Product extends React.Component {
       reject('Error, could not get the the products')
     });
   }
+
+
+  componentWillMount()
+  {
+    this.load_all_products();
+  }
+
+  reset = () => {
+    this.load_all_products();
+  }
+
+  search = (query) => {
+    fetch('/api/v1/products?search=' + query)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ products: json.products });
+      console.log(this.state.products);
+      // Some user object has been set up somewhere, build that user here
+      return "Okay";
+    })
+    .catch(() => {
+      reject('Error problems searching!')
+    });
+  }
+
   render() {
     const listItems = this.state.products.map((product) =>
        // Correct! Key should be specified inside the array.
@@ -35,7 +60,7 @@ class Product extends React.Component {
      );
     return (
       <div className="col-xs-12">
-        <Nav />
+        <Nav search={this.search} reset={this.reset} />
         { listItems }
       </div>
     );

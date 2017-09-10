@@ -7,13 +7,15 @@ const urls = {
 }
 
 const listStyle = {
-  display: "inline"
+  display: "inline",
+  listStyle: "none"
 };
 
 const buttonStyle = {
   cursor: "hand",
   cursor: "pointer",
-  marginRight: 10
+  marginRight: 10,
+  marginBottom: 5
 }
 
 const navStyle = {
@@ -25,26 +27,40 @@ const navStyle = {
 
 export default class Nav extends React.Component {
 
+  constructor(props) {
+      super(props);
+      this.state = {value: ''};
+  }
+
+  handleChange = (event) => {
+    this.setState({value: event.target.value});
+    if( event.target.value.length > 1 ) {
+      this.props.search( event.target.value );
+    } else {
+      this.props.reset()
+    }
+  }
+
   newProduct = () => {
     window.location = urls.newProduct
+  }
+
+  searching = () => {
+
   }
 
   render() {
     return(
       <div style={navStyle}>
-        <ul style={listStyle}>
-          <li style={listStyle}>
-            <button style={buttonStyle}
-                    className="btn btn-info"
-                    onClick={this.newProduct}
-            >
-                    New
-            </button>
-          </li>
-          <li style={listStyle}>
-            <button style={buttonStyle} className="btn btn-warning"> Search </button>
-          </li>
-        </ul>
+        <button style={buttonStyle}
+                className="btn btn-info"
+                onClick={this.newProduct}
+        >
+                New
+        </button>
+        <input value={this.state.value}
+               onChange={this.handleChange}
+               className="form-control"  />
       </div>
     )
   }
