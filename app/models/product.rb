@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :price, presence: true
   mount_uploader :picture, PictureUploader
+  after_save :convert_to_dong
 
   if Rails.env.production?
     include PgSearch
@@ -13,5 +14,11 @@ class Product < ApplicationRecord
                       :tsearch => {:prefix => true}
                     }
   end
+
+  def convert_to_dong
+    self.update_column(:dong, (22726.00 * sell_price) )
+  end
+
+
 
 end

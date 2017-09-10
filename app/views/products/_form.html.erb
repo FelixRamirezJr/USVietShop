@@ -10,6 +10,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :sell_price %>
+    <%= f.text_field :sell_price, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :quantity %>
     <%= f.number_field :quantity, class: "form-control", required: true %>
   </div>

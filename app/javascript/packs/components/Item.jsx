@@ -22,6 +22,12 @@ const routes = {
 
 export default class Item extends React.Component {
 
+  numberWithCommas = (x) => {
+    if( x != undefined ){
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  }
+
   edit = () => {
     window.location = routes.edit.replace(":id",this.props.product.id);
   }
@@ -39,8 +45,10 @@ export default class Item extends React.Component {
     return (
       <div style={itemStyle} >
         <img style={imgStyle} src={this.props.product.picture.url}/>
-        <p> {this.props.product.name} </p>
-        <p> { this.props.product.price } </p>
+        <p> <strong> {this.props.product.name} </strong> </p>
+        <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
+        <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
+        <p> Dong: d { this.numberWithCommas( this.props.product.dong) }  </p>
         <button onClick={this.edit}
                 style={buttonStyles}
                 className="btn btn-primary"
