@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import Item from './item'
+import Item from './Item'
 import util from '../Util/util'
 import Axios from 'axios'
 import Nav from './Nav'
