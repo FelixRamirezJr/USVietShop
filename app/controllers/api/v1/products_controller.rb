@@ -24,9 +24,14 @@ module Api
           @products = Product.all
         end
 
-        @revenue =  @products.pluck(:sell_price).inject(0){|sum,x| sum + x } - @products.pluck(:price).inject(0){|sum,x| sum + x }
+        @total = @products.pluck(:sell_price).inject(0){|sum,x| sum + x }
+        @revenue =  @total - @products.pluck(:price).inject(0){|sum,x| sum + x }
         @revenueDong = ( @revenue * 22726.00 )
-        render json: { products: @products, revenue: @revenue, revenueDong: @revenueDong }
+        @totalDong = ( @total * 22726.00 )
+        render json: { products: @products, revenue: @revenue,
+                       revenueDong: @revenueDong,
+                       total: @total,
+                       totalDong: @totalDong }
       end
 
     end

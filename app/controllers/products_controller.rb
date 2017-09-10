@@ -2,17 +2,6 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-
-    if params[:search] && !params[:search].empty?
-      if Rails.env.production?
-        @products = Product.pg_simple( params[:search] )
-      else
-        @products = Product.where( 'lower(name) like ?', params[:search] )
-      end
-    else
-      @products = Product.all
-    end
-
   end
 
   def create

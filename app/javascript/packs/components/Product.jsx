@@ -12,7 +12,9 @@ class Product extends React.Component {
     this.state = {
       products: [],
       revenue: 0,
-      revenueDong: 0
+      revenueDong: 0,
+      total: 0,
+      totalDong: 0
     }
   }
 
@@ -22,11 +24,9 @@ class Product extends React.Component {
     .then((json) => {
       this.setState({ products: json.products,
                       revenue: json.revenue,
-                      revenueDong: json.revenueDong });
-      console.log(" Products that I received ");
-      console.log(this.state.products);
-      console.log(this.state.revenue);
-      console.log(this.state.revenueDong);
+                      revenueDong: json.revenueDong,
+                      total: json.total,
+                      totalDong: json.totalDong });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -49,8 +49,11 @@ class Product extends React.Component {
     fetch('/api/v1/products?search=' + query)
     .then((response) => response.json())
     .then((json) => {
-      this.setState({ products: json.products });
-      console.log(this.state.products);
+      this.setState({ products: json.products,
+                      revenue: json.revenue,
+                      revenueDong: json.revenueDong,
+                      total: json.total,
+                      totalDong: json.totalDong });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -69,7 +72,9 @@ class Product extends React.Component {
         <Nav search={this.search}
              reset={this.reset}
              revenue={this.state.revenue}
-             revenueDong={this.state.revenueDong} />
+             revenueDong={this.state.revenueDong}
+             total={ this.state.total }
+             totalDong={ this.state.totalDong } />
         { listItems }
       </div>
     );
