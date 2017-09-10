@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @action = "Create"
   end
 
   def update
@@ -23,6 +24,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find( params[:id] )
+    @action = "Update"
   end
 
   private

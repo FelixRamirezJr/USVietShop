@@ -29,16 +29,21 @@
     <%= f.text_area :description, class: "form-control" %>
   </div>
 
+  <%= image_tag( @product.try(:picture).try(:url) ) if @product.picture? %>
   <div class="form-group">
     <%= f.label :picture %>
-    <%=  f.file_field :picture,
-                      accept: 'image/jpeg,image/gif,image/png',
-                      required: true,
-                      class: "form-control" %>
+    <% if @product.picture? %>
+      <label> <%= @product.picture.file.filename %> </label>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png',
+                                 class: "form-control", value: @product.picture %>
+    <% else %>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png',
+                                 required: true, class: "form-control" %>
+    <% end %>
   </div>
 
   <div class="form-group">
-    <%= f.submit "Create", type: "submit", class: "btn btn-primary" %>
+    <%= f.submit "#{@action}", type: "submit", class: "btn btn-primary" %>
   </div>
 
 <% end %>
