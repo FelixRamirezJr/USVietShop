@@ -32,6 +32,12 @@ export default class Nav extends React.Component {
       this.state = {value: ''};
   }
 
+  numberWithCommas = (x) => {
+    if( x != undefined ){
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  }
+
   handleChange = (event) => {
     this.setState({value: event.target.value});
     if( event.target.value.length > 1 ) {
@@ -58,6 +64,10 @@ export default class Nav extends React.Component {
         >
                 New
         </button>
+        <span>
+          Revenue: ${ this.numberWithCommas( this.props.revenue) }/d
+          { this.numberWithCommas( this.props.revenueDong ) }
+        </span>
         <input value={this.state.value}
                onChange={this.handleChange}
                className="form-control"  />

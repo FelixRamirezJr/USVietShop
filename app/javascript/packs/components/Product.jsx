@@ -10,7 +10,9 @@ class Product extends React.Component {
   constructor(){
     super();
     this.state = {
-      products: []
+      products: [],
+      revenue: 0,
+      revenueDong: 0
     }
   }
 
@@ -18,9 +20,13 @@ class Product extends React.Component {
     fetch('/api/v1/products')
     .then((response) => response.json())
     .then((json) => {
-      this.setState({ products: json.products });
+      this.setState({ products: json.products,
+                      revenue: json.revenue,
+                      revenueDong: json.revenueDong });
       console.log(" Products that I received ");
       console.log(this.state.products);
+      console.log(this.state.revenue);
+      console.log(this.state.revenueDong);
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -60,7 +66,10 @@ class Product extends React.Component {
      );
     return (
       <div className="col-xs-12">
-        <Nav search={this.search} reset={this.reset} />
+        <Nav search={this.search}
+             reset={this.reset}
+             revenue={this.state.revenue}
+             revenueDong={this.state.revenueDong} />
         { listItems }
       </div>
     );

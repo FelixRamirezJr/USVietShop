@@ -23,7 +23,10 @@ module Api
         else
           @products = Product.all
         end
-        render json: { products: @products }
+
+        @revenue =  @products.pluck(:sell_price).inject(0){|sum,x| sum + x } - @products.pluck(:price).inject(0){|sum,x| sum + x }
+        @revenueDong = ( @revenue * 22726.00 )
+        render json: { products: @products, revenue: @revenue, revenueDong: @revenueDong }
       end
 
     end
