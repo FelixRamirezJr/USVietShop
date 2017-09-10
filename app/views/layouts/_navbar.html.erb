@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default bg-dark navbar-fixed-top" style="margin-bottom: 10px;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <%= link_to "Menu", root_url, class: "navbar-brand",
+                                    data: { turbolinks: false },
+                                    style: "color: white;" %>
+    </div>
+    <% if user_signed_in? %>
+      <%= link_to "Sign out", destroy_user_session_path,
+                              :method => :delete,
+                              style: "float: right; color: white;" %>
+
+    <% else %>
+      <%= link_to "Sign In", new_user_session_path,
+                              :method => :delete,
+                              style: "float: right; color: white;" %>
+    <% end %>
+  </div><!-- /.container-fluid -->
+</nav>
