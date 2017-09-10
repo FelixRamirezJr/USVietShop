@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
       namespace :v1 do
         match '/test', to: "products#test", via: "GET"
+        match '/products', to: "products#index", via: "GET"
       end
     end
 

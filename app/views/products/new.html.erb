@@ -1,12 +1,33 @@
-<%= form_for Product.new do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for current_user.products.build,  html: { multipart: true } do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control", required: true %>
+      </div>
 
-  <%= f.label :price %>
-  <%= f.text_field :price %>
+      <div class="form-group">
+        <%= f.label :price %>
+        <%= f.text_field :price, class: "form-control", required: true %>
+      </div>
 
-  <%= f.label :quantity %>
-  <%= f.number_field :quantity %>
+      <div class="form-group">
+        <%= f.label :quantity %>
+        <%= f.number_field :quantity, class: "form-control", required: true %>
+      </div>
 
-  <%= f.submit "Create" %>
-<% end %>
+      <div class="form-group">
+        <%= f.label :picture %>
+        <%=  f.file_field :picture,
+                          accept: 'image/jpeg,image/gif,image/png',
+                          required: true,
+                          class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Create", type: "submit", class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

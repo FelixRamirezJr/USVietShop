@@ -7,6 +7,10 @@ module Api
         render json: {test: "Yes"}
       end
 
+      def index
+        render json: { products: Product.all }
+      end
+
     end
   end
 end
