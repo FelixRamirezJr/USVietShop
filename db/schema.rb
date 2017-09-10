@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910044244) do
+ActiveRecord::Schema.define(version: 20170910051626) do
 
   create_table "products", force: :cascade do |t|
     t.text "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170910044244) do
     t.integer "quantity", default: 1
     t.string "picture"
     t.decimal "sell_price"
+    t.text "condition", default: "New"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

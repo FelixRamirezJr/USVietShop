@@ -49,6 +49,7 @@ export default class Item extends React.Component {
         <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
         <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
         <p> Dong: d { this.numberWithCommas( this.props.product.dong) }  </p>
+        <p> Condition: {this.props.product.condition} </p>
         <button onClick={this.edit}
                 style={buttonStyles}
                 className="btn btn-primary"
