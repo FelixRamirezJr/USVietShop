@@ -3,13 +3,14 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :price, presence: true
+  validates :sell_price, presence: true
   mount_uploader :picture, PictureUploader
   after_save :convert_to_dong
 
   if Rails.env.production?
     include PgSearch
     pg_search_scope :pg_simple,
-                    :against => [:name, :price, :dong ],
+                    :against => [:name, :price, :dong, :description ],
                     :using => {
                       :tsearch => {:prefix => true}
                     }

@@ -76,6 +76,7 @@ export default class Item extends React.Component {
 
   render() {
     var status_button;
+    // Set sold status
     if ( this.state.sold ) {
       status_button = <strong> No Longer Available </strong>;
     } else {
@@ -85,10 +86,17 @@ export default class Item extends React.Component {
                         Sold
                       </button>;
     }
+
+    var description = null;
+    if ( this.props.product.description ) {
+      description = <p> <i> {this.props.product.description} </i> </p>;
+    }
+
     return (
       <div style={itemStyle} >
         <img style={imgStyle} src={this.props.product.picture.url}/>
         <p> <strong> {this.props.product.name} </strong> </p>
+        { description }
         <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
         <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
         <p> Dong: d { this.numberWithCommas( this.props.product.dong) }  </p>
