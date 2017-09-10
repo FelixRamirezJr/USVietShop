@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         match '/test', to: "products#test", via: "GET"
         match '/products', to: "products#index", via: "GET"
+        match '/sold', to: "products#sold", via: "GET"
       end
     end
 

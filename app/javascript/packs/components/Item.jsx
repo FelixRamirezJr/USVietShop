@@ -22,6 +22,23 @@ const routes = {
 
 export default class Item extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      status: "",
+      statusButton: "Sold"
+    };
+  }
+
+  componentWillMount() {
+    if( this.props.product.sold ) {
+      this.setState({ status: "SOLD"  });
+    } else {
+      this.setState({ status: "Available" });
+    }
+    this.setState({ sold: this.props.product.sold });
+  }
+
   numberWithCommas = (x) => {
     if( x != undefined ){
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -41,7 +58,33 @@ export default class Item extends React.Component {
     }
   }
 
+  sold = () => {
+    var cc = confirm("Are you sure you want to mark this item SOLD?")
+    if( cc ) {
+      fetch('/api/v1/sold?id=' + this.props.product.id)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({ sold: true });
+        // Some user object has been set up somewhere, build that user here
+        return "Okay";
+      })
+      .catch(() => {
+        reject('Error problems searching!')
+      });
+    }
+  }
+
   render() {
+    var status_button;
+    if ( this.state.sold ) {
+      status_button = <strong> No Longer Available </strong>;
+    } else {
+      status_button =  <button onClick={this.sold}
+                        style={buttonStyles}
+                        className="btn btn-success">
+                        Sold
+                      </button>;
+    }
     return (
       <div style={itemStyle} >
         <img style={imgStyle} src={this.props.product.picture.url}/>
@@ -61,6 +104,7 @@ export default class Item extends React.Component {
                 className="btn btn-danger">
                 Delete
         </button>
+        { status_button }
       </div>
     );
   }

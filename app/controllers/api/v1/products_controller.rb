@@ -7,6 +7,12 @@ module Api
         render json: {test: "Yes"}
       end
 
+      def sold
+        @product = Product.find( params[:id] )
+        @product.update_column(:sold, true )
+        render json: { success: "ok" }
+      end
+
       def index
         if params[:search] && !params[:search].empty?
           if Rails.env.production?
