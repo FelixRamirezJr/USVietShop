@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 export default class Item extends React.Component {
-  componentWillMount(){
-  }
+
   render() {
-    return <h1> Item  </h1>;
+    return (
+      <div>
+        <img src={this.props.product.picture.url}/>
+        <p> {this.props.product.name} </p>
+        <p> { this.props.product.price } </p>
+      </div>
+    );
   }
 }

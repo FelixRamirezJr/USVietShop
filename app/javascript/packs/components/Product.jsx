@@ -29,8 +29,15 @@ class Product extends React.Component {
     });
   }
   render() {
+    const listItems = this.state.products.map((product) =>
+       // Correct! Key should be specified inside the array.
+       <Item key={product.id} product={product} />
+     );
     return (
-      <Nav />
+      <div className="col-xs-12">
+        <Nav />
+        { listItems }
+      </div>
     );
   }
 }
