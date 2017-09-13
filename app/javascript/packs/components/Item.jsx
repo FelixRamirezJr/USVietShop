@@ -50,12 +50,21 @@ export default class Item extends React.Component {
   }
 
   delete = () => {
-    toDelete = confirm("Are you sure you want to delete the following?")
-    if( toDelete ){
-
-    } else {
-
+    var toDelete = confirm("Are you sure you want to delete the following?");
+    if( toDelete )
+    {
+      fetch('/api/v1/delete?id=' + this.props.product.id)
+      .then((response) => response.json())
+      .then((json) => {
+        this.props.delete( this.props.product );
+        // Some user object has been set up somewhere, build that user here
+        return "Okay";
+      })
+      .catch(() => {
+        reject('Error problems searching!')
+      });
     }
+
   }
 
   sold = () => {

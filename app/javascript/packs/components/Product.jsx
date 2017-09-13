@@ -45,6 +45,13 @@ class Product extends React.Component {
     this.load_all_products();
   }
 
+  delete = (product) =>{
+    var array = this.state.products;
+    var index = array.indexOf(product);
+    array.splice(index, 1);
+    this.setState({products: array });
+  }
+
   search = (query) => {
     fetch('/api/v1/products?search=' + query)
     .then((response) => response.json())
@@ -65,7 +72,7 @@ class Product extends React.Component {
   render() {
     const listItems = this.state.products.map((product) =>
        // Correct! Key should be specified inside the array.
-       <Item key={product.id} product={product} />
+       <Item key={product.id} product={product} delete={this.delete} />
      );
     return (
       <div className="col-xs-12">

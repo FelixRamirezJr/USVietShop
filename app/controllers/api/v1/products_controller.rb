@@ -13,6 +13,11 @@ module Api
         render json: { success: "ok" }
       end
 
+      def delete
+        Product.find( params[:id] ).destroy
+        render json: { success: "ok" }
+      end
+
       def index
         if params[:search] && !params[:search].empty?
           if Rails.env.production?

@@ -17,7 +17,9 @@ class Product < ApplicationRecord
   end
 
   def convert_to_dong
-    self.update_column(:dong, (22726.00 * sell_price) )
+    if self.dong.nil?
+      self.update_column( :dong, (22726.00 * sell_price) )
+    end
   end
 
 

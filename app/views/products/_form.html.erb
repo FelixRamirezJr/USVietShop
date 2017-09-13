@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'components/Tax' %>
+
 <%= form_for @product,  html: { multipart: true } do |f| %>
   <div class="form-group">
     <%= f.label :name %>
@@ -14,6 +16,7 @@
     <%= f.text_field :sell_price, class: "form-control", required: true %>
   </div>
 
+
   <div class="form-group">
     <%= f.label :quantity %>
     <%= f.number_field :quantity, class: "form-control", required: true %>
@@ -27,6 +30,11 @@
   <div class="form-group">
     <%= f.label :description %>
     <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Vietnamese Dong (optional)" %>
+    <%= f.text_field :dong, class: "form-control" %>
   </div>
 
   <%= image_tag( @product.try(:picture).try(:url) ) if @product.picture? %>
@@ -45,5 +53,4 @@
   <div class="form-group">
     <%= f.submit "#{@action}", type: "submit", class: "btn btn-primary" %>
   </div>
-
 <% end %>
