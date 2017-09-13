@@ -2,39 +2,39 @@
 
 <%= form_for @product,  html: { multipart: true } do |f| %>
   <div class="form-group">
-    <%= f.label :name %>
+    <%= f.label "Name (Tên)" %>
     <%= f.text_field :name, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :price %>
+    <%= f.label "Price (Giá gốc)" %>
     <%= f.text_field :price, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :sell_price %>
+    <%= f.label "Sell Price (Giá bán)" %>
     <%= f.text_field :sell_price, class: "form-control", required: true %>
   </div>
 
 
   <div class="form-group">
-    <%= f.label :quantity %>
+    <%= f.label "Quantity (Số lượng)" %>
     <%= f.number_field :quantity, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :condition %>
+    <%= f.label "Condition of item (Điều kiện của mặt hàng)" %>
     <%= f.text_field :condition, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :description %>
+    <%= f.label "Description (Sự miêu tả)" %>
     <%= f.text_area :description, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <label> Vietnamese Dong (optional) -
-      <span class="text-danger"> Xóa trường này nếu bạn muốn tính lại </span>  
+      <span class="text-danger"> Xóa trường này nếu bạn muốn tính lại </span>
     </label>
     <%= f.text_field :dong, class: "form-control" %>
   </div>

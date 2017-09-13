@@ -65,17 +65,18 @@ export default class Nav extends React.Component {
                 New
         </button>
         <span>
-          <strong> Revenue: </strong> ${ this.numberWithCommas( this.props.revenue) }/d
-          { this.numberWithCommas( this.props.revenueDong ) }
+          <strong> Revenue(Doanh thu): </strong> ${ this.numberWithCommas( this.props.revenue) }/
+          { this.numberWithCommas( this.props.revenueDong ) } đ
         </span>
         <span>
-            ,<strong> Est Total: </strong>
-            ${ this.numberWithCommas( this.props.total ) }/d
-            { this.numberWithCommas(this.props.totalDong) }
+            ,<strong> Est Total(Tổng số ước tính): </strong>
+            ${ this.numberWithCommas( this.props.total ) }/
+            { this.numberWithCommas(this.props.totalDong) } đ
         </span>
         <input value={this.state.value}
                onChange={this.handleChange}
-               className="form-control"  />
+               className="form-control"
+               placeholder="Search (Tìm kiếm)..."/>
       </div>
     )
   }
