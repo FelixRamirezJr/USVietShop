@@ -6,6 +6,19 @@ import util from '../Util/util'
 import Axios from 'axios'
 import Nav from './Nav'
 
+const myImg = require('./Rolling.gif');
+
+const imgStyle = {
+  textAlign: 'center',
+  marginLeft: 'auto',
+  marginRight: 'auto'
+}
+const center = {
+  textAlign: 'center',
+  width: '100%'
+}
+
+
 class Product extends React.Component {
   constructor(){
     super();
@@ -69,6 +82,23 @@ class Product extends React.Component {
     });
   }
 
+  loadSold = () => {
+    fetch('/api/v1/get_sold')
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ products: json.products,
+                      revenue: json.revenue,
+                      revenueDong: json.revenueDong,
+                      total: json.total,
+                      totalDong: json.totalDong });
+      // Some user object has been set up somewhere, build that user here
+      return "Okay";
+    })
+    .catch(() => {
+      reject('Error problems with getting sold products!')
+    });
+  }
+
   render() {
     const listItems = this.state.products.map((product) =>
        // Correct! Key should be specified inside the array.
@@ -81,8 +111,9 @@ class Product extends React.Component {
              revenue={this.state.revenue}
              revenueDong={this.state.revenueDong}
              total={ this.state.total }
-             totalDong={ this.state.totalDong } />
-        { listItems }
+             totalDong={ this.state.totalDong }
+             loadSold={this.loadSold} />
+        { this.state.products.length ? listItems : <div style={center}> <img style={imgStyle} src={myImg} /> </div> }
       </div>
     );
   }

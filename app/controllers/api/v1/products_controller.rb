@@ -1,6 +1,8 @@
 module Api
   module V1
     class ProductsController < ApplicationController
+      include ProductsHelper
+
       respond_to :json
 
       def test
@@ -11,6 +13,11 @@ module Api
         @product = Product.find( params[:id] )
         @product.update_column(:sold, true )
         render json: { success: "ok" }
+      end
+
+      def get_sold
+        @product = Product.where(sold: true)
+        renderProducts
       end
 
       def delete
@@ -28,11 +35,12 @@ module Api
         else
           @products = Product.all
         end
+        renderProducts
+      end
 
-        @total = @products.pluck(:sell_price).inject(0){|sum,x| sum + x }
-        @revenue =  @total - @products.pluck(:price).inject(0){|sum,x| sum + x }
-        @revenueDong = ( @revenue * 22726.00 )
-        @totalDong = ( @total * 22726.00 )
+      # Renders Products VIA JSON Request
+      def renderProducts
+        product_calculations( @products )
         render json: { products: @products, revenue: @revenue,
                        revenueDong: @revenueDong,
                        total: @total,
