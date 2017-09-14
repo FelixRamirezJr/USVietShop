@@ -13,11 +13,14 @@ const imgStyle = {
 };
 
 const buttonStyles = {
-  marginRight: 5
+  marginRight: 5,
+  cursor: 'hand',
+  cursor: 'pointer'
 }
 
 const routes = {
-  edit: "/products/:id/edit"
+  edit: "/products/:id/edit",
+  show: "/products/:id"
 }
 
 export default class Item extends React.Component {
@@ -47,6 +50,10 @@ export default class Item extends React.Component {
 
   edit = () => {
     window.location = routes.edit.replace(":id",this.props.product.id);
+  }
+
+  show = () => {
+    window.location = routes.show.replace(":id",this.props.product.id);
   }
 
   delete = () => {
@@ -110,6 +117,7 @@ export default class Item extends React.Component {
         <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
         <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
         <p> Condition: {this.props.product.condition} </p>
+
         <button onClick={this.edit}
                 style={buttonStyles}
                 className="btn btn-primary"
@@ -121,7 +129,13 @@ export default class Item extends React.Component {
                 className="btn btn-danger">
                 Delete
         </button>
+        <button onClick={this.show}
+                style={buttonStyles}
+                className="btn btn-inverse">
+        Link
+        </button>
         { status_button }
+
       </div>
     );
   }

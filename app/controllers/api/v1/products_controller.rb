@@ -5,6 +5,11 @@ module Api
 
       respond_to :json
 
+      def show
+        @product = Product.find( params[:id] )
+        render json: {product: @product}
+      end
+
       def test
         render json: {test: "Yes"}
       end

@@ -4,6 +4,9 @@ class ProductsController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def create
     @product = current_user.products.create( product_params )
     @product.save!

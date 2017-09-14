@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         match '/sold', to: "products#sold", via: "GET"
         match '/delete', to: "products#delete", via: "GET"
         match '/get_sold', to: "products#get_sold", via: "GET"
+        match '/product', to: "products#show", via: "GET"
       end
     end
 

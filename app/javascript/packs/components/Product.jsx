@@ -102,7 +102,7 @@ class Product extends React.Component {
   render() {
     const listItems = this.state.products.map((product) =>
        // Correct! Key should be specified inside the array.
-       <Item key={product.id} product={product} delete={this.delete} />
+       <Item key={product.id} product={product} delete={this.delete} show={true} />
      );
     return (
       <div className="col-xs-12">
