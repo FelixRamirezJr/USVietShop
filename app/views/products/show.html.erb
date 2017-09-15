@@ -1,3 +1,13 @@
+<head>
+  <meta name="author" content="">
+  <meta property="og:title" content="<%= @product.name %>" />
+  <meta property="og:type"  content="website" />
+  <meta property="og:url" content="https://us-viet-shop.com/products/<%= @product.id %>" />
+  <meta property="og:image" content="<%= @product.picture.url %>" />
+  <meta property="og:site_name" content="TiShop" />
+  <meta property="og:description" content="<%= @product.description%>" />
+</head>
+
 <div class="row">
   <div style="width: 100%" id="root">
     <%= javascript_pack_tag 'components/ProductShow' %>

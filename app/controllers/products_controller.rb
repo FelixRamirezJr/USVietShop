@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def index
   end
 
   def show
+    @product = Product.find( params[:id] )
   end
 
   def create
