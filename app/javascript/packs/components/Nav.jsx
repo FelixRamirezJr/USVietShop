@@ -78,7 +78,6 @@ export default class Nav extends React.Component {
                onChange={this.handleChange}
                className="form-control"
                placeholder="Search (Tìm kiếm)..."/>
-        <img src="<%= asset_url('assets/images/Rolling.gif') %>"/>
       </div>
     )
   }
