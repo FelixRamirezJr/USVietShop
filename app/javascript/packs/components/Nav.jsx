@@ -25,11 +25,17 @@ const navStyle = {
   padding: 5
 };
 
+const soldText = "Sort by Sold( Sắp xếp theo bán )";
+const currentInventory = " Inventory( Hàng tồn kho ) ";
+
 export default class Nav extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = {value: ''};
+      this.state = {
+        value: '',
+        sortText: soldText
+      };
   }
 
   numberWithCommas = (x) => {
@@ -51,6 +57,19 @@ export default class Nav extends React.Component {
     window.location = urls.newProduct
   }
 
+  // This will change the scope of the products by whether they are sold or not
+  sort = () => {
+    // Swap Text values for the button
+    var sortBySold = "false";
+    if(this.state.sortText == soldText) {
+      sortBySold = "true";
+      this.setState({ sortText: currentInventory });
+    } else {
+      this.setState({ sortText: soldText });
+    }
+    this.props.resort( sortBySold );
+  }
+
   searching = () => {
 
   }
@@ -62,8 +81,15 @@ export default class Nav extends React.Component {
                 className="btn btn-info"
                 onClick={this.newProduct}
         >
-                New
+          New
         </button>
+        <button style={buttonStyle}
+                className="btn btn-success"
+                onClick={this.sort}
+        >
+          { this.state.sortText }
+        </button>
+        <br/>
 
         <span>
           <strong> Revenue(Doanh thu): </strong> ${ this.numberWithCommas( this.props.revenue) }/

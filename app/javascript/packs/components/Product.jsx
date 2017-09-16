@@ -27,19 +27,23 @@ class Product extends React.Component {
       revenue: 0,
       revenueDong: 0,
       total: 0,
-      totalDong: 0
+      totalDong: 0,
+      sold: "false",
+      finishedRequest: false
     }
   }
 
   load_all_products = () => {
-    fetch('/api/v1/products')
+    this.setState({finishedRequest: false});
+    fetch('/api/v1/products?sold=' + this.state.sold)
     .then((response) => response.json())
     .then((json) => {
       this.setState({ products: json.products,
                       revenue: json.revenue,
                       revenueDong: json.revenueDong,
                       total: json.total,
-                      totalDong: json.totalDong });
+                      totalDong: json.totalDong,
+                      finishedRequest: true });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -58,6 +62,13 @@ class Product extends React.Component {
     this.load_all_products();
   }
 
+  resort = (sort) => {
+    this.setState({ sold: sort },
+                  () => {
+                    this.load_all_products();
+                  });
+  }
+
   delete = (product) =>{
     var array = this.state.products;
     var index = array.indexOf(product);
@@ -66,14 +77,16 @@ class Product extends React.Component {
   }
 
   search = (query) => {
-    fetch('/api/v1/products?search=' + query)
+    this.setState({finishedRequest: false});
+    fetch('/api/v1/products?search=' + query + "&sold=" + this.state.sold)
     .then((response) => response.json())
     .then((json) => {
       this.setState({ products: json.products,
                       revenue: json.revenue,
                       revenueDong: json.revenueDong,
                       total: json.total,
-                      totalDong: json.totalDong });
+                      totalDong: json.totalDong,
+                      finishedRequest: true });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -100,20 +113,30 @@ class Product extends React.Component {
   }
 
   render() {
-    const listItems = this.state.products.map((product) =>
+
+    const loading = <div style={center}> <img style={imgStyle} src={myImg} /> </div>;
+
+    let listItems = this.state.products.map((product) =>
        // Correct! Key should be specified inside the array.
        <Item key={product.id} product={product} delete={this.delete} show={true} />
      );
+
+     if (this.state.products.length == 0) {
+       listItems = null;
+       listItems = <p style={{marginLeft: 15}}> No results found </p>;
+     }
+
     return (
       <div className="col-xs-12">
         <Nav search={this.search}
              reset={this.reset}
+             resort={this.resort}
              revenue={this.state.revenue}
              revenueDong={this.state.revenueDong}
              total={ this.state.total }
              totalDong={ this.state.totalDong }
              loadSold={this.loadSold} />
-        { this.state.products.length ? listItems : <div style={center}> <img style={imgStyle} src={myImg} /> </div> }
+        { this.state.finishedRequest ? listItems : loading }
       </div>
     );
   }

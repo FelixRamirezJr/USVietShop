@@ -3,6 +3,8 @@ module Api
     class ProductsController < ApplicationController
       include ProductsHelper
 
+      before_action :get_sold_param, only: [:index]
+
       respond_to :json
 
       def show
@@ -34,11 +36,13 @@ module Api
         if params[:search] && !params[:search].empty?
           if Rails.env.production?
             @products = Product.pg_simple( params[:search] )
+                               .where( sold: params[:sold] )
           else
             @products = Product.where( 'lower(name) like ?', params[:search] )
+                               .where( sold: params[:sold] )
           end
         else
-          @products = Product.all
+          @products = Product.where( sold: params[:sold] )
         end
         renderProducts
       end
@@ -50,6 +54,13 @@ module Api
                        revenueDong: @revenueDong,
                        total: @total,
                        totalDong: @totalDong }
+      end
+
+      private
+
+      def get_sold_param
+        params[:sold] = true if params[:sold] == "true"
+        params[:sold] = false if params[:sold] == "false"
       end
 
     end
