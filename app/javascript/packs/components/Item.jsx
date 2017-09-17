@@ -117,6 +117,7 @@ export default class Item extends React.Component {
         <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
         <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
         <p> Condition: {this.props.product.condition} </p>
+        <p> Quantity: { this.props.product.quantity } </p>
 
         <button onClick={this.edit}
                 style={buttonStyles}
