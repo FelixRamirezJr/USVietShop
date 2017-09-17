@@ -39,7 +39,7 @@
     <%= f.text_field :dong, class: "form-control" %>
   </div>
 
-  <%= image_tag( @product.try(:picture).try(:url) ) if @product.picture? %>
+  <%= image_tag( @product.try(:picture).try(:url), class: "responsive-image" ) if @product.picture? %>
   <div class="form-group">
     <%= f.label :picture %>
     <% if @product.picture? %>
