@@ -3,7 +3,7 @@ module Api
     class ProductsController < ApplicationController
       include ProductsHelper
 
-      before_action :get_sold_param, only: [:index]
+      before_action :get_bool_params, only: [:index]
 
       respond_to :json
 
@@ -18,7 +18,7 @@ module Api
 
       def sold
         @product = Product.find( params[:id] )
-        @product.update_column(:sold, true )
+        @product.update_columns(sold: true, remaining_quantity: 0 )
         render json: { success: "ok" }
       end
 
@@ -37,19 +37,39 @@ module Api
           if Rails.env.production?
             @products = Product.pg_simple( params[:search] )
                                .where( sold: params[:sold] )
+                               .where( special_order: params[:special_order] )
           else
             @products = Product.where( 'lower(name) like ?', params[:search] )
                                .where( sold: params[:sold] )
+                               .where( special_order: params[:special_order] )
           end
         else
           @products = Product.where( sold: params[:sold] )
+                             .where( special_order: params[:special_order] )
         end
         renderProducts
       end
 
+      def sell_one
+        @product = Product.find( params[:id] )
+        if @product.remaining_quantity == 1
+          @product.update_columns(sold: true, remaining_quantity: 0)
+        else
+          @product.update_columns( remaining_quantity: @product.remaining_quantity - 1 )
+        end
+        render json: { product: @product }
+      end
+
+      def add_one
+        @product = Product.find( params[:id] )
+        @product.update_columns(quantity: @product.quantity + 1,
+                                remaining_quantity: @product.remaining_quantity + 1 )
+        render json: { product: @product }
+      end
+
       # Renders Products VIA JSON Request
       def renderProducts
-        product_calculations( @products )
+        product_calculations( @products, params )
         render json: { products: @products, revenue: @revenue,
                        revenueDong: @revenueDong,
                        total: @total,
@@ -58,9 +78,14 @@ module Api
 
       private
 
-      def get_sold_param
-        params[:sold] = true if params[:sold] == "true"
-        params[:sold] = false if params[:sold] == "false"
+      def get_bool_params
+        params[:sold] = to_bool( params[:sold] )
+        params[:special_order] = to_bool( params[:special_order] )
+      end
+
+      def to_bool( myVal )
+        return true if myVal == "true"
+        return false if myVal == "false"
       end
 
     end

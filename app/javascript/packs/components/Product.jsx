@@ -29,13 +29,19 @@ class Product extends React.Component {
       total: 0,
       totalDong: 0,
       sold: "false",
-      finishedRequest: false
+      finishedRequest: false,
+      special_order: "false"
     }
+  }
+
+  buildParams = () => {
+    var str =  ('sold=' + this.state.sold + "&special_order=" + this.state.special_order);
+    return str
   }
 
   load_all_products = () => {
     this.setState({finishedRequest: false});
-    fetch('/api/v1/products?sold=' + this.state.sold)
+    fetch('/api/v1/products?' + this.buildParams())
     .then((response) => response.json())
     .then((json) => {
       this.setState({ products: json.products,
@@ -69,6 +75,13 @@ class Product extends React.Component {
                   });
   }
 
+  setSpecialOrderFilter = (special) => {
+    this.setState({ special_order: special },
+                  () => {
+                    this.load_all_products();
+                  });
+  }
+
   delete = (product) =>{
     var array = this.state.products;
     var index = array.indexOf(product);
@@ -78,7 +91,7 @@ class Product extends React.Component {
 
   search = (query) => {
     this.setState({finishedRequest: false});
-    fetch('/api/v1/products?search=' + query + "&sold=" + this.state.sold)
+    fetch('/api/v1/products?search=' + query + "&" + this.buildParams())
     .then((response) => response.json())
     .then((json) => {
       this.setState({ products: json.products,
@@ -135,7 +148,8 @@ class Product extends React.Component {
              revenueDong={this.state.revenueDong}
              total={ this.state.total }
              totalDong={ this.state.totalDong }
-             loadSold={this.loadSold} />
+             loadSold={this.loadSold}
+             setSpecialOrderFilter={ this.setSpecialOrderFilter } />
         { this.state.finishedRequest ? listItems : loading }
       </div>
     );

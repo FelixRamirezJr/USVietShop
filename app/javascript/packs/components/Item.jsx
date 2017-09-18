@@ -29,7 +29,8 @@ export default class Item extends React.Component {
     super(props);
     this.state = {
       status: "",
-      statusButton: "Sold"
+      statusButton: "Sold",
+      remaining_quantity: 0,
     };
   }
 
@@ -40,6 +41,8 @@ export default class Item extends React.Component {
       this.setState({ status: "Available" });
     }
     this.setState({ sold: this.props.product.sold });
+    this.setState({ remaining_quantity: this.props.product.remaining_quantity,
+                    quantity: this.props.product.quantity });
   }
 
   numberWithCommas = (x) => {
@@ -48,12 +51,52 @@ export default class Item extends React.Component {
     }
   }
 
+  calculate_current = ( price, quantity, remaining ) => {
+    price = parseFloat( price );
+    quantity = parseInt( quantity );
+    remaining = parseInt( remaining );
+    var calc = price * ( quantity - remaining );
+    return calc;
+  }
+
   edit = () => {
     window.location = routes.edit.replace(":id",this.props.product.id);
   }
 
   show = () => {
     window.location = routes.show.replace(":id",this.props.product.id);
+  }
+
+  sellOne = () => {
+    if( parseInt( this.state.remaining_quantity ) == 1 ){
+      this.sold();
+    } else {
+      fetch('/api/v1/sell_one?id=' + this.props.product.id)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({ remaining_quantity: json.product.remaining_quantity,
+                        quantity: json.product.quantity });
+        // Some user object has been set up somewhere, build that user here
+        return "Okay";
+      })
+      .catch(() => {
+        reject('Error problems searching!')
+      });
+    }
+  }
+
+  addOne = () => {
+    fetch('/api/v1/add_one?id=' + this.props.product.id)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ remaining_quantity: json.product.remaining_quantity,
+                      quantity: json.product.quantity });
+      // Some user object has been set up somewhere, build that user here
+      return "Okay";
+    })
+    .catch(() => {
+      reject('Error problems searching!')
+    });
   }
 
   delete = () => {
@@ -108,6 +151,18 @@ export default class Item extends React.Component {
       description = <p> <i> {this.props.product.description} </i> </p>;
     }
 
+    var special_order = null;
+    if ( this.props.product.special_order ) {
+      special_order = <p> <strong> <i> Special Order </i> </strong> </p>;
+    }
+
+    var currently_earned = null;
+    var cc = null;
+    if( this.props.product.quantity > 1 ) {
+      cc = this.calculate_current( this.props.product.sell_price, this.state.quantity, this.state.remaining_quantity );
+      currently_earned = <i> Currently Earned: ${cc} </i>;
+    }
+
     return (
       <div style={itemStyle} >
         <img style={imgStyle} src={this.props.product.picture.url}/>
@@ -117,7 +172,11 @@ export default class Item extends React.Component {
         <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
         <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
         <p> Condition: {this.props.product.condition} </p>
-        <p> Quantity: { this.props.product.quantity } </p>
+        <p> Quantity:
+          { this.state.remaining_quantity }/{ this.state.quantity }
+          { currently_earned }
+        </p>
+        { special_order }
 
         <button onClick={this.edit}
                 style={buttonStyles}
@@ -134,6 +193,16 @@ export default class Item extends React.Component {
                 style={buttonStyles}
                 className="btn btn-inverse">
         Link
+        </button>
+        <button onClick={this.sellOne}
+                style={buttonStyles}
+                className="btn btn-warning">
+         Sell One
+        </button>
+        <button onClick={this.addOne}
+                style={buttonStyles}
+                className="btn btn-warning">
+         Add One
         </button>
         { status_button }
 

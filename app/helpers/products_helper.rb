@@ -1,6 +1,6 @@
 module ProductsHelper
 
-  def product_calculations(products)
+  def product_calculations( products, params )
 
     @total = 0
     @revenue = 0

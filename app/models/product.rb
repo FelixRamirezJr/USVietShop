@@ -5,7 +5,8 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :sell_price, presence: true
   mount_uploader :picture, PictureUploader
-  after_save :convert_to_dong
+  after_save :set_dong
+  after_create :set_defaults
 
   if Rails.env.production?
     include PgSearch
@@ -16,10 +17,14 @@ class Product < ApplicationRecord
                     }
   end
 
-  def convert_to_dong
+  def set_dong
     if self.dong.nil?
       self.update_column( :dong, (22726.00 * sell_price) )
     end
+  end
+
+  def set_defaults
+    self.update_column(:remaining_quantity, self.quantity)
   end
 
 

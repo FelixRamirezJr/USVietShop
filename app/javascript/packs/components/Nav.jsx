@@ -25,8 +25,11 @@ const navStyle = {
   padding: 5
 };
 
+// Text for Inventory Sorting
 const soldText = "Sort by Sold( Sắp xếp theo bán )";
 const currentInventory = " Inventory( Hàng tồn kho ) ";
+const seeSpecialOrder = "Special Orders Only (Chỉ đặt hàng đặc biệt)";
+const hideSpecialOrder = "Back to normal view ( Trở lại màn hình bình thường )";
 
 export default class Nav extends React.Component {
 
@@ -34,7 +37,8 @@ export default class Nav extends React.Component {
       super(props);
       this.state = {
         value: '',
-        sortText: soldText
+        sortText: soldText,
+        specialOrderText: seeSpecialOrder,
       };
   }
 
@@ -70,6 +74,17 @@ export default class Nav extends React.Component {
     this.props.resort( sortBySold );
   }
 
+  special_order = () => {
+    var sortBySpecial = "false";
+    if( this.state.specialOrderText == seeSpecialOrder ) {
+      sortBySpecial = "true";
+      this.setState({ specialOrderText: hideSpecialOrder });
+    } else {
+      this.setState({ specialOrderText: seeSpecialOrder });
+    }
+    this.props.setSpecialOrderFilter( sortBySpecial );
+  }
+
   searching = () => {
 
   }
@@ -88,6 +103,11 @@ export default class Nav extends React.Component {
                 onClick={this.sort}
         >
           { this.state.sortText }
+        </button>
+        <button style={buttonStyle}
+                className="btn btn-warning"
+                onClick={this.special_order}>
+                { this.state.specialOrderText }
         </button>
         <br/>
 
