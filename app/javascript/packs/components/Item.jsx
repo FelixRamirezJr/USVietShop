@@ -165,46 +165,50 @@ export default class Item extends React.Component {
 
     return (
       <div style={itemStyle} >
-        <img style={imgStyle} src={this.props.product.picture.url}/>
-        <p> <strong> {this.props.product.name} </strong> </p>
-        { description }
-        <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
-        <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
-        <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
-        <p> Condition: {this.props.product.condition} </p>
-        <p> Quantity:
-          { this.state.remaining_quantity }/{ this.state.quantity }
-          { currently_earned }
-        </p>
-        { special_order }
+        <div className="col-sm-5">
+          <img style={imgStyle} src={this.props.product.picture.url}/>
+        </div>
+        <div className="col-sm-12">
+          <p> <strong> {this.props.product.name} </strong> </p>
+          { description }
+          <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
+          <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
+          <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
+          <p> Condition: {this.props.product.condition} </p>
+          <p> Quantity:
+            { this.state.remaining_quantity }/{ this.state.quantity }
+            { currently_earned }
+          </p>
+          { special_order }
 
-        <button onClick={this.edit}
-                style={buttonStyles}
-                className="btn btn-primary"
-                type="button">
-          Edit
-        </button>
-        <button onClick={this.delete}
-                style={buttonStyles}
-                className="btn btn-danger">
-                Delete
-        </button>
-        <button onClick={this.show}
-                style={buttonStyles}
-                className="btn btn-inverse">
-        Link
-        </button>
-        <button onClick={this.addOne}
-                style={buttonStyles}
-                className="btn btn-warning">
-         +
-        </button>
-        <button onClick={this.sellOne}
-                style={buttonStyles}
-                className="btn btn-warning">
-         -
-        </button>
-        { status_button }
+          <button onClick={this.edit}
+                  style={buttonStyles}
+                  className="btn btn-primary"
+                  type="button">
+            Edit
+          </button>
+          <button onClick={this.delete}
+                  style={buttonStyles}
+                  className="btn btn-danger">
+                  Delete
+          </button>
+          <button onClick={this.show}
+                  style={buttonStyles}
+                  className="btn btn-inverse">
+          Link
+          </button>
+          <button onClick={this.addOne}
+                  style={buttonStyles}
+                  className="btn btn-warning">
+           +
+          </button>
+          <button onClick={this.sellOne}
+                  style={buttonStyles}
+                  className="btn btn-warning">
+           -
+          </button>
+          { status_button }
+        </div>
 
       </div>
     );
