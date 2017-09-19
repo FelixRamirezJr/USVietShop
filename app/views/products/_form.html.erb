@@ -33,6 +33,17 @@
   </div>
 
   <div class="form-group">
+    <%= f.label "Weight (Cân nặng)" %>
+    <%= f.number_field :weight, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Shipping Price (Giá vận chuyển)" %>
+    <%= f.number_field :shipping_price, class: "form-control" %>
+  </div>
+
+
+  <div class="form-group">
     <label> Vietnamese Dong (optional) -
       <span class="text-danger"> Xóa trường này nếu bạn muốn tính lại </span>
     </label>

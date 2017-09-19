@@ -28,8 +28,8 @@ const navStyle = {
 // Text for Inventory Sorting
 const soldText = "Sort by Sold( Sắp xếp theo bán )";
 const currentInventory = " Inventory( Hàng tồn kho ) ";
-const seeSpecialOrder = "Special Orders Only (Chỉ đặt hàng đặc biệt)";
-const hideSpecialOrder = "Back to normal view ( Trở lại màn hình bình thường )";
+const seeSpecialOrder = "Special Orders (Lệnh đặc biệt)";
+const hideSpecialOrder = "For Sale (Rao bán)";
 
 export default class Nav extends React.Component {
 

@@ -194,15 +194,15 @@ export default class Item extends React.Component {
                 className="btn btn-inverse">
         Link
         </button>
-        <button onClick={this.sellOne}
-                style={buttonStyles}
-                className="btn btn-warning">
-         Sell One
-        </button>
         <button onClick={this.addOne}
                 style={buttonStyles}
                 className="btn btn-warning">
-         Add One
+         +
+        </button>
+        <button onClick={this.sellOne}
+                style={buttonStyles}
+                className="btn btn-warning">
+         -
         </button>
         { status_button }
 
