@@ -30,12 +30,19 @@ class Product extends React.Component {
       totalDong: 0,
       sold: "false",
       finishedRequest: false,
-      special_order: "false"
+      special_order: "false",
+      package: ""
     }
   }
 
+  getUrlParam = (str) => {
+    let url = new URL(window.location.href);
+    let searchParams = new URLSearchParams(url.search);
+    return searchParams.get(str);
+  }
+
   buildParams = () => {
-    var str =  ('sold=' + this.state.sold + "&special_order=" + this.state.special_order);
+    var str =  ('sold=' + this.state.sold + "&special_order=" + this.state.special_order + "&package=" + this.getUrlParam("package") );
     return str
   }
 

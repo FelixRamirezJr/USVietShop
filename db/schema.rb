@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919052206) do
+ActiveRecord::Schema.define(version: 20170920063314) do
+
+  create_table "packages", force: :cascade do |t|
+    t.text "name"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_packages_on_name", unique: true
+    t.index ["product_id"], name: "index_packages_on_product_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.text "name"
@@ -31,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170919052206) do
     t.integer "remaining_quantity", default: 0
     t.decimal "shipping_price", precision: 8, scale: 2, default: "0.0"
     t.decimal "weight", default: "0.0"
+    t.text "package_name"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

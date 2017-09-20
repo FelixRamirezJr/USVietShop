@@ -17,6 +17,11 @@ class Product < ApplicationRecord
                     }
   end
 
+  def self.packages
+    #Product.distinct.pluck(:package_name)
+    Product.select("distinct name").pluck(:package_name).uniq.compact
+  end
+
   def set_dong
     if self.dong.nil?
       self.update_column( :dong, (22726.00 * sell_price) )
