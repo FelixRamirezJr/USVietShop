@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const itemStyle = {
   borderBottom: "1px solid grey",
   padding: 5,
-  wordBreak: 'break-all'
+  wordBreak: 'break-word'
 };
 
 const imgStyle = {
