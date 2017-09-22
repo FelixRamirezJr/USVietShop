@@ -39,6 +39,8 @@ export default class Nav extends React.Component {
         value: '',
         sortText: soldText,
         specialOrderText: seeSpecialOrder,
+        packages: [],
+        selectedPackage: ""
       };
   }
 
@@ -54,7 +56,13 @@ export default class Nav extends React.Component {
       this.props.search( event.target.value );
     } else {
       this.props.reset()
+      this.setState({ selectedPackage: this.props.packages[0] });
     }
+  }
+
+  changePackage = (event) => {
+    this.setState({ selectedPackage: event.target.value });
+    this.props.changePackage( event.target.value );
   }
 
   newProduct = () => {
@@ -90,13 +98,18 @@ export default class Nav extends React.Component {
   }
 
   render() {
+    let packages = this.props.packages.map((pack) =>
+       // Correct! Key should be specified inside the array.
+       <option key={pack} value={pack}> {pack} </option>
+     );
+
     return(
       <div style={navStyle}>
         <button style={buttonStyle}
                 className="btn btn-info"
                 onClick={this.newProduct}
         >
-          New
+          New Item
         </button>
         <button style={buttonStyle}
                 className="btn btn-success"
@@ -109,6 +122,9 @@ export default class Nav extends React.Component {
                 onClick={this.special_order}>
                 { this.state.specialOrderText }
         </button>
+        <select value={this.state.selectedPackage} onChange={this.changePackage}>
+          {packages}
+        </select>
         <br/>
 
         <span>

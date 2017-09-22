@@ -4,6 +4,7 @@ module Api
       include ProductsHelper
 
       before_action :get_bool_params, only: [:index]
+      before_action :selectedPackage, only: [:index]
 
       respond_to :json
 
@@ -38,14 +39,17 @@ module Api
             @products = Product.pg_simple( params[:search] )
                                .where( sold: params[:sold] )
                                .where( special_order: params[:special_order] )
+                               .where( package_name: params[:package] )
           else
             @products = Product.where( 'lower(name) like ?', params[:search] )
                                .where( sold: params[:sold] )
                                .where( special_order: params[:special_order] )
+                               .where( package_name: params[:package] )
           end
         else
           @products = Product.where( sold: params[:sold] )
                              .where( special_order: params[:special_order] )
+                             .where( package_name: params[:package] )
         end
         renderProducts
       end
@@ -73,7 +77,8 @@ module Api
         render json: { products: @products, revenue: @revenue,
                        revenueDong: @revenueDong,
                        total: @total,
-                       totalDong: @totalDong }
+                       totalDong: @totalDong,
+                       packages: Product.packages }
       end
 
       private
@@ -81,6 +86,10 @@ module Api
       def get_bool_params
         params[:sold] = to_bool( params[:sold] )
         params[:special_order] = to_bool( params[:special_order] )
+      end
+
+      def selectedPackage
+        params[:package] = Product.packages.first if params[:package].empty?
       end
 
       def to_bool( myVal )

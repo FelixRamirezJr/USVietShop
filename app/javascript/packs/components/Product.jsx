@@ -31,7 +31,8 @@ class Product extends React.Component {
       sold: "false",
       finishedRequest: false,
       special_order: "false",
-      package: ""
+      selectedPackage: "",
+      packages: []
     }
   }
 
@@ -42,7 +43,9 @@ class Product extends React.Component {
   }
 
   buildParams = () => {
-    var str =  ('sold=' + this.state.sold + "&special_order=" + this.state.special_order + "&package=" + this.getUrlParam("package") );
+    var str =  ('sold=' + this.state.sold
+                        + "&special_order=" + this.state.special_order
+                        + "&package=" + this.state.selectedPackage );
     return str
   }
 
@@ -56,7 +59,9 @@ class Product extends React.Component {
                       revenueDong: json.revenueDong,
                       total: json.total,
                       totalDong: json.totalDong,
-                      finishedRequest: true });
+                      finishedRequest: true,
+                      packages: json.packages,
+                      selectedPackage: json.packages[0] });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -77,6 +82,13 @@ class Product extends React.Component {
 
   resort = (sort) => {
     this.setState({ sold: sort },
+                  () => {
+                    this.load_all_products();
+                  });
+  }
+
+  changePackage = (pack) => {
+    this.setState({ selectedPackage: pack },
                   () => {
                     this.load_all_products();
                   });
@@ -106,7 +118,9 @@ class Product extends React.Component {
                       revenueDong: json.revenueDong,
                       total: json.total,
                       totalDong: json.totalDong,
-                      finishedRequest: true });
+                      finishedRequest: true,
+                      packages: json.packages,
+                      selectedPackage: json.packages[0] });
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })
@@ -155,6 +169,8 @@ class Product extends React.Component {
              revenueDong={this.state.revenueDong}
              total={ this.state.total }
              totalDong={ this.state.totalDong }
+             packages={ this.state.packages }
+             changePackage={ this.changePackage }
              loadSold={this.loadSold}
              setSpecialOrderFilter={ this.setSpecialOrderFilter } />
         { this.state.finishedRequest ? listItems : loading }
