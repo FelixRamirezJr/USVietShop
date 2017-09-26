@@ -180,6 +180,8 @@ export default class Item extends React.Component {
             { this.state.remaining_quantity }/{ this.state.quantity }
             { currently_earned }
           </p>
+          <p> Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } </p>
+          <p> Weight: { this.props.product.weight } lbs </p>
           { special_order }
 
           <button onClick={this.edit}

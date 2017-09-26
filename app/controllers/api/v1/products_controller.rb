@@ -78,6 +78,8 @@ module Api
                        revenueDong: @revenueDong,
                        total: @total,
                        totalDong: @totalDong,
+                       shippingTotal: @shipping_total,
+                       shippingTotalDong: @shipping_total_dong,
                        packages: Product.packages }
       end
 

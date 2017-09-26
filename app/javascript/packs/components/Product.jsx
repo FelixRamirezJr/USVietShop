@@ -59,6 +59,8 @@ class Product extends React.Component {
                       revenueDong: json.revenueDong,
                       total: json.total,
                       totalDong: json.totalDong,
+                      shippingTotal: json.shippingTotal,
+                      shippingTotalDong: json.shippingTotalDong,
                       finishedRequest: true,
                       packages: json.packages,
                       selectedPackage: json.packages[0] });
@@ -118,6 +120,8 @@ class Product extends React.Component {
                       revenueDong: json.revenueDong,
                       total: json.total,
                       totalDong: json.totalDong,
+                      shippingTotal: json.shippingTotal,
+                      shippingTotalDong: json.shippingTotalDong,
                       finishedRequest: true,
                       packages: json.packages,
                       selectedPackage: json.packages[0] });
@@ -169,6 +173,8 @@ class Product extends React.Component {
              revenueDong={this.state.revenueDong}
              total={ this.state.total }
              totalDong={ this.state.totalDong }
+             shippingTotal={ this.state.shippingTotal }
+             shippingTotalDong={ this.state.shippingTotalDong }
              packages={ this.state.packages }
              changePackage={ this.changePackage }
              loadSold={this.loadSold}
