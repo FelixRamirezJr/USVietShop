@@ -5,7 +5,7 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :sell_price, presence: true
   mount_uploader :picture, PictureUploader
-  after_save :set_dong
+  after_save :set_extras
   after_create :set_defaults
 
   if Rails.env.production?
@@ -19,12 +19,15 @@ class Product < ApplicationRecord
 
   def self.packages
     #Product.distinct.pluck(:package_name)
-    Product.select("distinct name").pluck(:package_name).uniq.compact
+    Product.select("distinct name").pluck(:package_name).uniq.reverse.compact
   end
 
-  def set_dong
+  def set_extras
     if self.dong.nil?
       self.update_column( :dong, (22726.00 * sell_price) )
+    end
+    if self.package_name
+      self.update_column( :package_name, self.package_name.capitalize )
     end
   end
 
