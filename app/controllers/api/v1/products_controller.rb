@@ -38,17 +38,14 @@ module Api
           if Rails.env.production?
             @products = Product.pg_simple( params[:search] )
                                .where( sold: params[:sold] )
-                               .where( special_order: params[:special_order] )
                                .where( package_name: params[:package] )
           else
             @products = Product.where( 'lower(name) like ?', params[:search] )
                                .where( sold: params[:sold] )
-                               .where( special_order: params[:special_order] )
                                .where( package_name: params[:package] )
           end
         else
           @products = Product.where( sold: params[:sold] )
-                             .where( special_order: params[:special_order] )
                              .where( package_name: params[:package] )
         end
         renderProducts

@@ -32,7 +32,8 @@ class Product extends React.Component {
       finishedRequest: false,
       special_order: "false",
       selectedPackage: "",
-      packages: []
+      packages: [],
+      first_load: true
     }
   }
 
@@ -62,8 +63,10 @@ class Product extends React.Component {
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
                       finishedRequest: true,
-                      packages: json.packages,
-                      selectedPackage: json.packages[0] });
+                      packages: json.packages });
+      if (this.state.first_load){
+       this.setState({ selectedPackage: json.packages[0], first_load: false });
+     }
       // Some user object has been set up somewhere, build that user here
       return "Okay";
     })

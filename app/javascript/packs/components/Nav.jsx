@@ -102,6 +102,11 @@ export default class Nav extends React.Component {
        // Correct! Key should be specified inside the array.
        <option key={pack} value={pack}> {pack} </option>
      );
+     // <button style={buttonStyle}
+     //        className="btn btn-warning"
+     //        onClick={this.special_order}>
+     //        { this.state.specialOrderText }
+     // </button>
 
     return(
       <div style={navStyle}>
@@ -116,11 +121,6 @@ export default class Nav extends React.Component {
                 onClick={this.sort}
         >
           { this.state.sortText }
-        </button>
-        <button style={buttonStyle}
-                className="btn btn-warning"
-                onClick={this.special_order}>
-                { this.state.specialOrderText }
         </button>
         <select value={this.state.selectedPackage} onChange={this.changePackage}>
           {packages}
