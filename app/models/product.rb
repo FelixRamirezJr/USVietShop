@@ -24,7 +24,7 @@ class Product < ApplicationRecord
 
   def set_extras
     if self.dong.nil?
-      self.update_column( :dong, (22726.00 * sell_price) )
+      self.update_column( :dong, (23500.00 * sell_price) )
     end
     if self.package_name
       self.update_column( :package_name, self.package_name.capitalize )

@@ -17,9 +17,9 @@ module ProductsHelper
 
     @total = sell_price_total
     @revenue =  sell_price_total - ( price_total + @shipping_total )
-    @revenueDong = ( ( @revenue * 22726.00 ) )
-    @totalDong = ( @total * 22726.00 )
-    @shipping_total_dong = ( @shipping_total * 22726.00 )
+    @revenueDong = ( ( @revenue * 23500.00 ) )
+    @totalDong = ( @total * 23500.00 )
+    @shipping_total_dong = ( @shipping_total * 23500.00 )
   end
 
 end
