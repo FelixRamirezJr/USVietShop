@@ -157,6 +157,21 @@ export default class Item extends React.Component {
       special_order = <p> <strong> <i> Special Order </i> </strong> </p>;
     }
 
+    var customer_name = null;
+    if ( this.props.product.customer_name ) {
+      customer_name = <p> Customer Name: <strong> <i>  {this.props.product.customer_name} </i> </strong> </p>;
+    }
+
+    var customer_birthdate = null;
+    if ( this.props.product.customer_birthdate ) {
+      customer_birthdate = <p> Customer Birthdate: <strong> <i>  {this.props.product.customer_birthdate} </i> </strong> </p>;
+    }
+
+    var customer_phone_number = null;
+    if ( this.props.product.customer_phone_number ) {
+      customer_phone_number = <p> Customer Phone Number: <strong> <i>  {this.props.product.customer_phone_number} </i> </strong> </p>;
+    }
+
     var currently_earned = null;
     var cc = null;
     if( this.props.product.quantity > 1 ) {
@@ -183,6 +198,9 @@ export default class Item extends React.Component {
           <p> Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } </p>
           <p> Weight: { this.props.product.weight } lbs </p>
           { special_order }
+          { customer_name }
+          { customer_phone_number }
+          { customer_birthdate }
 
           <button onClick={this.edit}
                   style={buttonStyles}

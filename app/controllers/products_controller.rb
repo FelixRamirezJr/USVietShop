@@ -38,7 +38,8 @@ class ProductsController < ApplicationController
                                     :sell_price, :condition, :description,
                                     :dong, :special_order, :remaining_quantity,
                                     :shipping_price, :weight,
-                                    :package_name )
+                                    :package_name, :customer_name, :customer_birthdate,
+                                    :customer_phone_number )
   end
 
 end

@@ -1,8 +1,9 @@
 <%= javascript_pack_tag 'components/Tax' %>
+<%= javascript_pack_tag 'components/Dong' %>
 
 <%= form_for @product,  html: { multipart: true } do |f| %>
   <div class="form-group">
-    <%= f.label "Name (Tên)" %>
+    <%= f.label "Item Name (Tên mục)" %>
     <%= f.text_field :name, class: "form-control", required: true %>
   </div>
 
@@ -52,6 +53,21 @@
       <span class="text-danger"> Xóa trường này nếu bạn muốn tính lại </span>
     </label>
     <%= f.text_field :dong, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Customer Name" %>
+    <%= f.text_field :customer_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Customer Phone Number" %>
+    <%= f.text_field :customer_phone_number, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Customer Birthdate" %>
+    <%= f.text_field :customer_birthdate, class: "form-control" %>
   </div>
 
   <div class="form-group">
