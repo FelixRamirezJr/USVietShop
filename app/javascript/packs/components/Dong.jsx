@@ -28,7 +28,7 @@ class Dong extends React.Component {
   render() {
     return (
       <div className="col-xs-12" style={{padding: 5}}>
-        <span> VND to USD  $1 = 23500 VND : </span>
+        <span> VND to USD  $1 = 23,500đ  </span>
         <input value={this.state.value}
                onChange={this.handleChange}
                placeholder="Enter VND here (500000)"
