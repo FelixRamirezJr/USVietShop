@@ -18,7 +18,7 @@ class Tax extends React.Component {
 
 
   handleChange = (event) => {
-    var calc = parseFloat( ( event.target.value * 0.0875  ) );
+    var calc = parseFloat( ( event.target.value * 0.0825  ) );
     calc = parseFloat( parseFloat( event.target.value ) + parseFloat( calc ) ).toFixed(2);
     if (event.target.value.length == 0){
       calc = "";
