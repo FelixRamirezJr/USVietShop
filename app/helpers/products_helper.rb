@@ -20,6 +20,7 @@ module ProductsHelper
     @revenueDong = ( ( @revenue * 23500.00 ) )
     @totalDong = ( @total * 23500.00 )
     @shipping_total_dong = ( @shipping_total * 23500.00 )
+    @totalPaidForProducts = ( @shipping_total + price_total )
   end
 
 end

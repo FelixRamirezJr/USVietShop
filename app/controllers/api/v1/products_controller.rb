@@ -77,6 +77,7 @@ module Api
                        totalDong: @totalDong,
                        shippingTotal: @shipping_total,
                        shippingTotalDong: @shipping_total_dong,
+                       totalPaidForProducts: @totalPaidForProducts,
                        packages: Product.packages }
       end
 

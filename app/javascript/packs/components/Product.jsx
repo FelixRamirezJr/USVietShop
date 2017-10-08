@@ -28,6 +28,7 @@ class Product extends React.Component {
       revenueDong: 0,
       total: 0,
       totalDong: 0,
+      totalPaidForProducts: 0,
       sold: "false",
       finishedRequest: false,
       special_order: "false",
@@ -62,6 +63,7 @@ class Product extends React.Component {
                       totalDong: json.totalDong,
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
+                      totalPaidForProducts: json.totalPaidForProducts,
                       finishedRequest: true,
                       packages: json.packages });
       if (this.state.first_load){
@@ -125,6 +127,7 @@ class Product extends React.Component {
                       totalDong: json.totalDong,
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
+                      totalPaidForProducts: json.totalPaidForProducts,
                       finishedRequest: true,
                       packages: json.packages,
                       selectedPackage: json.packages[0] });
@@ -133,23 +136,6 @@ class Product extends React.Component {
     })
     .catch(() => {
       reject('Error problems searching!')
-    });
-  }
-
-  loadSold = () => {
-    fetch('/api/v1/get_sold')
-    .then((response) => response.json())
-    .then((json) => {
-      this.setState({ products: json.products,
-                      revenue: json.revenue,
-                      revenueDong: json.revenueDong,
-                      total: json.total,
-                      totalDong: json.totalDong });
-      // Some user object has been set up somewhere, build that user here
-      return "Okay";
-    })
-    .catch(() => {
-      reject('Error problems with getting sold products!')
     });
   }
 
@@ -178,6 +164,7 @@ class Product extends React.Component {
              totalDong={ this.state.totalDong }
              shippingTotal={ this.state.shippingTotal }
              shippingTotalDong={ this.state.shippingTotalDong }
+             totalPaidForProducts={ this.state.totalPaidForProducts }
              packages={ this.state.packages }
              changePackage={ this.changePackage }
              loadSold={this.loadSold}

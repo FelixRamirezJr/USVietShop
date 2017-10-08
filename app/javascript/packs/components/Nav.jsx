@@ -141,6 +141,10 @@ export default class Nav extends React.Component {
             ${ this.numberWithCommas( this.props.shippingTotal ) }/
             { this.numberWithCommas( this.props.shippingTotalDong ) } đ
         </span>
+        <span>
+            ,<strong> Total Paid for Products: </strong>
+            ${ this.numberWithCommas( this.props.totalPaidForProducts ) }
+        </span>
         <input value={this.state.value}
                onChange={this.handleChange}
                className="form-control"
