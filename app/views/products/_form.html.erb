@@ -73,9 +73,14 @@
 
   <div class="form-group">
     <%= f.label :special_order  do %>
-      <%= f.check_box :special_order %>
-      Special Order ( Đơn hàng đặc biệt )
+      <%= f.check_box :paid %>
+      Paid
     <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Delivery time" %>
+    <%= f.text_field :delivery_time, class: "form-control" %>
   </div>
 
   <%= image_tag( @product.try(:picture).try(:url), class: "responsive-image" ) if @product.picture? %>
