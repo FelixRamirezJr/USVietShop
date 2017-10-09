@@ -93,10 +93,6 @@ export default class Nav extends React.Component {
     this.props.setSpecialOrderFilter( sortBySpecial );
   }
 
-  searching = () => {
-
-  }
-
   render() {
     let packages = this.props.packages.map((pack) =>
        // Correct! Key should be specified inside the array.
