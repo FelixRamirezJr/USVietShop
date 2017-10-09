@@ -64,10 +64,11 @@ class Product extends React.Component {
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
                       totalPaidForProducts: json.totalPaidForProducts,
-                      finishedRequest: true,
-                      packages: json.packages });
+                      finishedRequest: true });
       if (this.state.first_load){
-       this.setState({ selectedPackage: json.packages[0], first_load: false });
+       this.setState({ packages: json.packages,
+                       selectedPackage: json.packages[0],
+                       first_load: false });
      }
       // Some user object has been set up somewhere, build that user here
       return "Okay";
@@ -128,10 +129,11 @@ class Product extends React.Component {
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
                       totalPaidForProducts: json.totalPaidForProducts,
-                      finishedRequest: true,
-                      packages: json.packages });
+                      finishedRequest: true });
         if (this.state.first_load){
-         this.setState({ selectedPackage: json.packages[0], first_load: false });
+         this.setState({ packages: json.packages,
+                         selectedPackage: json.packages[0],
+                         first_load: false });
        }
       // Some user object has been set up somewhere, build that user here
       return "Okay";
@@ -169,6 +171,7 @@ class Product extends React.Component {
              totalPaidForProducts={ this.state.totalPaidForProducts }
              packages={ this.state.packages }
              changePackage={ this.changePackage }
+             selectedPackage={ this.state.selectedPackage }
              loadSold={this.loadSold}
              setSpecialOrderFilter={ this.setSpecialOrderFilter } />
         { this.state.finishedRequest ? listItems : loading }

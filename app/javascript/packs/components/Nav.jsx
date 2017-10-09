@@ -56,12 +56,10 @@ export default class Nav extends React.Component {
       this.props.search( event.target.value );
     } else {
       this.props.reset()
-      this.setState({ selectedPackage: this.props.packages[0] });
     }
   }
 
   changePackage = (event) => {
-    this.setState({ selectedPackage: event.target.value });
     this.props.changePackage( event.target.value );
   }
 
@@ -118,7 +116,7 @@ export default class Nav extends React.Component {
         >
           { this.state.sortText }
         </button>
-        <select value={this.state.selectedPackage} onChange={this.changePackage}>
+        <select value={this.props.selectedPackage} onChange={this.changePackage}>
           {packages}
         </select>
         <br/>
