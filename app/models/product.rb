@@ -11,7 +11,9 @@ class Product < ApplicationRecord
   if Rails.env.production?
     include PgSearch
     pg_search_scope :pg_simple,
-                    :against => [:name, :price, :dong, :description ],
+                    :against => [:name, :price, :dong, :description,
+                                 :customer_name, :customer_birthdate,
+                                 :delivery_time, :customer_phone_number ],
                     :using => {
                       :tsearch => {:prefix => true}
                     }
