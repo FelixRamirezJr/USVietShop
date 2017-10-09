@@ -132,17 +132,17 @@ export default class Nav extends React.Component {
           { this.numberWithCommas( this.props.revenueDong ) } đ
         </span>
         <span>
-            ,<strong> Est Total(Tổng số ước tính): </strong>
+            <br/> <strong> Est Total(Tổng số ước tính): </strong>
             ${ this.numberWithCommas( this.props.total ) }/
             { this.numberWithCommas(this.props.totalDong) } đ
         </span>
         <span>
-            ,<strong> Shipping Total(Tổng số vận chuyển): </strong>
+            <br/><strong> Shipping Total(Tổng số vận chuyển): </strong>
             ${ this.numberWithCommas( this.props.shippingTotal ) }/
             { this.numberWithCommas( this.props.shippingTotalDong ) } đ
         </span>
         <span>
-            ,<strong> Total Paid in U.S. (Tổng số phải trả ở Hoa Kỳ): </strong>
+            <br/><strong> Total Paid in U.S. (Tổng số phải trả ở Hoa Kỳ): </strong>
             ${ this.numberWithCommas( this.props.totalPaidForProducts ) }
         </span>
         <input value={this.state.value}
