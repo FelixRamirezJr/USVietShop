@@ -29,7 +29,7 @@ class Product < ApplicationRecord
       self.update_column( :dong, (23500.00 * sell_price) )
     end
     if self.package_name
-      self.update_column( :package_name, self.package_name.capitalize )
+      self.update_column( :package_name, self.package_name.capitalize.strip )
     end
   end
 
