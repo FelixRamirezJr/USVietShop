@@ -28,6 +28,7 @@ class ReceiptsController < ApplicationController
 
   def index
     @receipts = Receipt.where(package_name: params[:package])
+    receipt_calc( @receipts )
   end
 
 

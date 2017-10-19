@@ -5,6 +5,10 @@
       <%= select_tag "receipt_dropdown", options_for_select(Receipt.packages, params[:package]) ,:onchange => 'reload()' %>
     </div>
 
+    <div class="col-sm-12">
+      Total: <%= @total %>
+    </div>
+
     <br><br><br>
 
     <div class="col-sm-12">
