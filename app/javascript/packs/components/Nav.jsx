@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const urls = {
-  newProduct: "/products/new"
+  newProduct: "/products/new",
+  receipts: "/receipts"
 }
 
 const listStyle = {
@@ -64,7 +65,11 @@ export default class Nav extends React.Component {
   }
 
   newProduct = () => {
-    window.location = urls.newProduct
+    window.location = urls.newProduct;
+  }
+
+  receipts = () => {
+    window.location = urls.receipts;
   }
 
   // This will change the scope of the products by whether they are sold or not

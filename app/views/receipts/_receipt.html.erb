@@ -1,0 +1,9 @@
+<div class="col-xs-12">
+  <div class="col-sm-4">
+    <%= image_tag(receipt.picture, class: "responsive-image") %>
+  </div>
+  <div> Name: <%= receipt.name %> </div>
+  <div> Date: <%= receipt.date %> </div>
+  <div> total: <%= receipt.total %> </div>
+  <%= link_to "Edit", edit_receipt_path(receipt), class: "btn btn-primary" %>
+</div>

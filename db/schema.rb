@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008052154) do
+ActiveRecord::Schema.define(version: 20171019005006) do
 
   create_table "packages", force: :cascade do |t|
     t.text "name"
@@ -23,16 +23,16 @@ ActiveRecord::Schema.define(version: 20171008052154) do
 
   create_table "products", force: :cascade do |t|
     t.text "name"
-    t.decimal "price"
-    t.decimal "tax"
-    t.decimal "final_price"
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "tax", precision: 8, scale: 2
+    t.decimal "final_price", precision: 8, scale: 2
     t.decimal "dong"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.string "picture"
-    t.decimal "sell_price"
+    t.decimal "sell_price", precision: 8, scale: 2
     t.text "condition", default: "New"
     t.boolean "sold", default: false
     t.text "description"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20171008052154) do
     t.text "delivery_time"
     t.boolean "paid", default: false
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "receipts", force: :cascade do |t|
+    t.text "name"
+    t.text "date"
+    t.string "picture"
+    t.text "package_name"
+    t.decimal "total", precision: 8, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_receipts_on_name"
+    t.index ["package_name"], name: "index_receipts_on_package_name"
   end
 
   create_table "users", force: :cascade do |t|

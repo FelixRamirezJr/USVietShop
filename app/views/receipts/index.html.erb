@@ -1,0 +1,14 @@
+<div class="row">
+
+    <div class="col-sm-12">
+      <%= link_to "New Receipt", new_receipt_path, class: "btn btn-info" %>
+      <%= select_tag "receipt_dropdown", options_for_select(Receipt.packages, params[:package]) ,:onchange => 'reload()' %>
+    </div>
+
+    <br><br><br>
+
+    <div class="col-sm-12">
+      <%= render @receipts %>
+    </div>
+
+</div>
