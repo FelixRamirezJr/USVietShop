@@ -1,6 +1,7 @@
 class ReceiptsController < ApplicationController
   include ReceiptsHelper
   before_action :selectedPackage, only: [:index]
+  before_action :authenticate_user!
 
 
   def create
