@@ -1,3 +1,5 @@
+require 'csv'
+
 class Product < ApplicationRecord
   belongs_to :user
 
@@ -37,6 +39,18 @@ class Product < ApplicationRecord
     self.update_column(:remaining_quantity, self.quantity)
   end
 
+  def self.to_csv(total = 0, sell_total = 0 )
+    attributes = %w{name price sell_price description quantity shipping_price paid}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |pro|
+        csv << attributes.map{ |attr| pro.send(attr) }
+      end
+      csv << [ "", total, sell_total ]
+    end
+  end
 
 
 end

@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  include ProductsHelper
   before_action :authenticate_user!, except: [:show]
 
   def index
@@ -33,9 +34,10 @@ class ProductsController < ApplicationController
 
   def print_csv
     @products = Product.where( package_name: params[:package] )
+    product_calculations( @products )
     respond_to do |format|
-      format.csv { send_data @products.to_csv }
-      format.xls { send_data @products.to_csv(col_sep: "\t") }
+      format.csv { send_data @products.to_csv( @price_total, @total ),
+                   filename: "products-#{params[:package]}-#{Date.today}.csv" }
     end
   end
 
