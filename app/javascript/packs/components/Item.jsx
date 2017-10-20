@@ -187,7 +187,9 @@ export default class Item extends React.Component {
     return (
       <div style={itemStyle} >
         <div className="col-sm-5">
-          <img style={imgStyle} src={this.props.product.picture.url}/>
+          <a href={this.props.product.picture.url} >
+            <img style={imgStyle} src={this.props.product.picture.url}/>
+          </a>
         </div>
         <div className="col-sm-12">
           <p> <strong> {this.props.product.name} </strong> </p>
