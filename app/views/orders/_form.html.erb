@@ -1,0 +1,43 @@
+<%= form_for @order,  html: { multipart: true } do |f| %>
+  <div class="form-group">
+    <%= f.label "Name of item" %>
+    <%= f.text_field :name, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Link/Url" %>
+    <%= f.text_field :link, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Price" %>
+    <%= f.text_field :price, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Package (Tên gói hàng)" %>
+    <%= f.text_field :package_name, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Customer Name" %>
+    <%= f.text_field :customer_name, class: "form-control" %>
+  </div>
+
+
+  <%= image_tag( @order.try(:picture).try(:url), class: "responsive-image" ) if @order.picture? %>
+  <div class="form-group">
+    <%= f.label :picture %>
+    <% if @order.picture? %>
+      <label> <%= @order.picture.file.filename %> </label>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png',
+                                 class: "form-control", value: @order.picture %>
+    <% else %>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: "form-control" %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "#{@action}", type: "submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

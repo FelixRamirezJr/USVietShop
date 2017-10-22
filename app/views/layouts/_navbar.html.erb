@@ -8,6 +8,10 @@
       <%= link_to "Receipts", receipts_path, class: "navbar-brand",
                                     data: { turbolinks: false },
                                     style: "color: white;" %>
+
+      <%= link_to "Orders", orders_path, class: "navbar-brand",
+                                    data: { turbolinks: false },
+                                    style: "color: white;" %>
     </div>
     <% if user_signed_in? %>
       <%= link_to "Sign out", destroy_user_session_path,

@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'orders/index'
+
+  get 'orders/create'
+
+  get 'orders/update'
+
+  get 'orders/new'
+
+  get 'orders/edit'
+
   # API Specific stuff
   namespace :api, defaults: {format: 'json'} do
       namespace :v1 do
@@ -21,5 +31,6 @@ Rails.application.routes.draw do
   root "products#index"
 
   resources :receipts
+  resources :orders
 
 end

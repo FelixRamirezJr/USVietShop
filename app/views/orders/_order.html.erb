@@ -1,0 +1,18 @@
+<div class="col-xs-12" style="border-bottom: 1px solid grey; padding: 5px;">
+  <div class="col-sm-4">
+    <%= link_to( image_tag(order.picture, class: "responsive-image"),
+                 order.picture.url,
+                  target: "_blank" ) %>
+  </div>
+  <div> Name: <%= order.name %> </div>
+  <div>
+    <%= link_to order.link, order.link  %>
+  </div>
+  <% if order.price && order.price > 0 %>
+    <div> price: <%= order.price %> </div>
+  <% end %>
+  <% if order.customer_name && order.customer_name.length > 0 %>
+    <div> customer name: <%= order.customer_name %> </div>
+  <% end %>
+  <%= link_to "Edit", edit_order_path(order), class: "btn btn-primary" %>
+</div>
