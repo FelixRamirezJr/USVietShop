@@ -27,6 +27,12 @@ class OrdersController < ApplicationController
     @action = "Update"
   end
 
+  def destroy
+    @order = Order.find( params[:id] )
+    @order.destroy
+    redirect_to request.referrer
+  end
+
   def index
     @orders = Order.where(package_name: params[:package])
     order_calc

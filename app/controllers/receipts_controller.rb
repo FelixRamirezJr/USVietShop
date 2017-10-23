@@ -15,6 +15,12 @@ class ReceiptsController < ApplicationController
     @action = "Create"
   end
 
+  def destroy
+    @order = Receipt.find( params[:id] )
+    @order.destroy
+    redirect_to request.referrer
+  end
+
   def update
     @receipt = Receipt.find( params[:id] )
     @receipt.update_attributes( receipt_params )

@@ -15,4 +15,5 @@
     <div> customer name: <%= order.customer_name %> </div>
   <% end %>
   <%= link_to "Edit", edit_order_path(order), class: "btn btn-primary" %>
+  <%= link_to "Delete", order_path(order), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
 </div>

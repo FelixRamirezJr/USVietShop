@@ -8,4 +8,5 @@
   <div> Date: <%= receipt.date %> </div>
   <div> total: <%= receipt.total %> </div>
   <%= link_to "Edit", edit_receipt_path(receipt), class: "btn btn-primary" %>
+  <%= link_to "Delete", receipt_path(receipt), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
 </div>
