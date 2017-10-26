@@ -29,7 +29,7 @@ const navStyle = {
 
 const finalStyle = {
   position: 'absolute',
-  top: 10,
+  top: 5,
   right: 10
 };
 
@@ -93,8 +93,10 @@ export default class Nav extends React.Component {
     } else  {
       var money_received = prompt("Enter the amount of money received");
     }
-    this.setState({ money_received: money_received });
-    this.props.setFinal( this.state.selectedPackage, money_received );
+    if(money_received != null) {
+      this.setState({ money_received: money_received });
+      this.props.setFinal( this.state.selectedPackage, money_received );
+    }
   }
 
   // This will change the scope of the products by whether they are sold or not
@@ -170,13 +172,11 @@ export default class Nav extends React.Component {
             { this.numberWithCommas( this.props.shippingTotalDong ) } đ
         </span>
         <div style={finalStyle}>
-          <button className="btn btn-success"
+          <button className="btn btn-info"
                   onClick={this.setFinal}
           >
-          Final
+          {this.state.money_received} Final
           </button>
-        <br/>
-        {this.state.money_received}
         </div>
         <input value={this.state.value}
                onChange={this.handleChange}
