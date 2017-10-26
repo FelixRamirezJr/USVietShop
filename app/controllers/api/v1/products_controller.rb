@@ -68,8 +68,23 @@ module Api
         render json: { product: @product }
       end
 
+      def set_final
+        @final = Final.where(package_name: params[:package_name])
+        if @final && @final.count > 0
+          puts "FOUND IT"
+          @final = @final.first
+          @final.update_column(:money_received, params[:money_received])
+        else
+          puts "CRWETA"
+          @final = Final.create(package_name: params[:package_name],
+                                money_received: params[:money_received])
+        end
+        render json: {ok: "true"}
+      end
+
       # Renders Products VIA JSON Request
       def renderProducts
+        @final = Final.where(package_name: params[:package]).first
         product_calculations( @products, params )
         render json: { products: @products, revenue: @revenue,
                        revenueDong: @revenueDong,
@@ -78,7 +93,8 @@ module Api
                        shippingTotal: @shipping_total,
                        shippingTotalDong: @shipping_total_dong,
                        totalPaidForProducts: @totalPaidForProducts,
-                       packages: Product.packages }
+                       packages: Product.packages,
+                       final: @final }
       end
 
       private

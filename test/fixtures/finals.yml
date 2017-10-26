@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  package_name: MyText
+  money_received: 9.99
+  deducted: 9.99
+
+two:
+  package_name: MyText
+  money_received: 9.99
+  deducted: 9.99

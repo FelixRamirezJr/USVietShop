@@ -34,7 +34,8 @@ class Product extends React.Component {
       special_order: "false",
       selectedPackage: "",
       packages: [],
-      first_load: true
+      first_load: true,
+      final: null
     }
   }
 
@@ -64,6 +65,7 @@ class Product extends React.Component {
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
                       totalPaidForProducts: json.totalPaidForProducts,
+                      final: json.final,
                       finishedRequest: true });
       if (this.state.first_load){
        this.setState({ packages: json.packages,
@@ -109,6 +111,18 @@ class Product extends React.Component {
                   });
   }
 
+  setFinal = (package_name, amount) => {
+    fetch('/api/v1/set_final?money_received=' + amount + "&package_name=" + this.state.selectedPackage)
+    .then((response) => response.json())
+    .then((json) => {
+      // Some user object has been set up somewhere, build that user here
+      return "Okay";
+    })
+    .catch(() => {
+      reject('Error problems searching!')
+    });
+  }
+
   delete = (product) =>{
     var array = this.state.products;
     var index = array.indexOf(product);
@@ -129,6 +143,7 @@ class Product extends React.Component {
                       shippingTotal: json.shippingTotal,
                       shippingTotalDong: json.shippingTotalDong,
                       totalPaidForProducts: json.totalPaidForProducts,
+                      final: json.final,
                       finishedRequest: true });
         if (this.state.first_load){
          this.setState({ packages: json.packages,
@@ -173,6 +188,8 @@ class Product extends React.Component {
              changePackage={ this.changePackage }
              selectedPackage={ this.state.selectedPackage }
              loadSold={this.loadSold}
+             final={this.state.final}
+             setFinal={this.setFinal}
              setSpecialOrderFilter={ this.setSpecialOrderFilter } />
         { this.state.finishedRequest ? listItems : loading }
       </div>

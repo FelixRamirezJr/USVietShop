@@ -23,7 +23,14 @@ const navStyle = {
   border: '1px solid black',
   margin: 10,
   borderRadius: 5,
-  padding: 5
+  padding: 5,
+  position: 'relative'
+};
+
+const finalStyle = {
+  position: 'absolute',
+  top: 10,
+  right: 10
 };
 
 // Text for Inventory Sorting
@@ -41,10 +48,18 @@ export default class Nav extends React.Component {
         sortText: soldText,
         specialOrderText: seeSpecialOrder,
         packages: [],
-        selectedPackage: ""
+        selectedPackage: "",
+        money_received: null
       };
   }
 
+  componentWillReceiveProps(props) {
+    if(props.final) {
+      this.setState({ money_received: props.final.money_received });
+    } else {
+      this.setState({ money_received: null });
+    }
+  }
   numberWithCommas = (x) => {
     if( x != undefined ){
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -70,6 +85,16 @@ export default class Nav extends React.Component {
 
   receipts = () => {
     window.location = urls.receipts;
+  }
+
+  setFinal = () => {
+    if(this.props.final){
+      var money_received = prompt(this.props.final.money_received);
+    } else  {
+      var money_received = prompt("Enter the amount of money received");
+    }
+    this.setState({ money_received: money_received });
+    this.props.setFinal( this.state.selectedPackage, money_received );
   }
 
   // This will change the scope of the products by whether they are sold or not
@@ -144,6 +169,15 @@ export default class Nav extends React.Component {
             ${ this.numberWithCommas( this.props.shippingTotal ) }/
             { this.numberWithCommas( this.props.shippingTotalDong ) } đ
         </span>
+        <div style={finalStyle}>
+          <button className="btn btn-success"
+                  onClick={this.setFinal}
+          >
+          Final
+          </button>
+        <br/>
+        {this.state.money_received}
+        </div>
         <input value={this.state.value}
                onChange={this.handleChange}
                className="form-control"

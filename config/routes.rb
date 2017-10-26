@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         match '/product', to: "products#show", via: "GET"
         match '/sell_one', to: "products#sell_one", via: "GET"
         match '/add_one', to: "products#add_one", via: "GET"
+        match '/set_final', to: "products#set_final", via: "GET"
       end
     end
 

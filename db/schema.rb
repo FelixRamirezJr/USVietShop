@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022183404) do
+ActiveRecord::Schema.define(version: 20171026192130) do
+
+  create_table "finals", force: :cascade do |t|
+    t.text "package_name"
+    t.decimal "money_received", precision: 8, scale: 2, default: "0.0"
+    t.decimal "deducted", precision: 8, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["package_name"], name: "index_finals_on_package_name"
+  end
 
   create_table "orders", force: :cascade do |t|
     t.text "name"
@@ -36,16 +45,16 @@ ActiveRecord::Schema.define(version: 20171022183404) do
 
   create_table "products", force: :cascade do |t|
     t.text "name"
-    t.decimal "price", precision: 8, scale: 2
-    t.decimal "tax", precision: 8, scale: 2
-    t.decimal "final_price", precision: 8, scale: 2
+    t.decimal "price"
+    t.decimal "tax"
+    t.decimal "final_price"
     t.decimal "dong"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.string "picture"
-    t.decimal "sell_price", precision: 8, scale: 2
+    t.decimal "sell_price"
     t.text "condition", default: "New"
     t.boolean "sold", default: false
     t.text "description"
