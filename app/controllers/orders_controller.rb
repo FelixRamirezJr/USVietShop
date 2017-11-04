@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(package_name: params[:package])
+    @orders = Order.all
     order_calc
   end
 
@@ -47,13 +47,12 @@ class OrdersController < ApplicationController
   def renderOrders
     order_calc( @orders )
     render json: { Orders: @orders,
-                   total: @total,
-                   packages: Orders.packages }
+                   total: @total }
   end
 
 
   def selectedPackage
-    params[:package] = Order.packages.first if  params[:package].nil? || params[:package].empty?
+    #params[:package] = Order.packages.first if  params[:package].nil? || params[:package].empty?
   end
 
 end

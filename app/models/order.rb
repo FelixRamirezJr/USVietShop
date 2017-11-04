@@ -1,7 +1,5 @@
 class Order < ApplicationRecord
   validates :name, presence: true
-  validates :link, presence: true
-
 
   mount_uploader :picture, PictureUploader
 

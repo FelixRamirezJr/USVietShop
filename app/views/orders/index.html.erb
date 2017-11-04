@@ -2,7 +2,6 @@
 
     <div class="col-sm-12">
       <%= link_to "New Order", new_order_path, class: "btn btn-info" %>
-      <%= select_tag "order_dropdown", options_for_select(Order.packages, params[:package]) ,:onchange => 'reload()' %>
     </div>
 
     <div class="col-sm-12">

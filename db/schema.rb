@@ -45,16 +45,16 @@ ActiveRecord::Schema.define(version: 20171026192130) do
 
   create_table "products", force: :cascade do |t|
     t.text "name"
-    t.decimal "price"
-    t.decimal "tax"
-    t.decimal "final_price"
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "tax", precision: 8, scale: 2
+    t.decimal "final_price", precision: 8, scale: 2
     t.decimal "dong"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.string "picture"
-    t.decimal "sell_price"
+    t.decimal "sell_price", precision: 8, scale: 2
     t.text "condition", default: "New"
     t.boolean "sold", default: false
     t.text "description"
