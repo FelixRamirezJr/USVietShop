@@ -6,7 +6,7 @@
   </div>
   <div class="col-xs-12" > <strong> <%= order.name %> </strong> </div>
   <div class="col-xs-12">
-    <%= link_to order.link, order.link  %>
+    <%= link_to order.link, order.link, target: "_blank"  %>
   </div>
   <% if order.price && order.price > 0 %>
     <div> price: <%= order.price %> </div>
