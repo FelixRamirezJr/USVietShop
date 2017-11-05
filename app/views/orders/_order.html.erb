@@ -4,8 +4,8 @@
                  order.picture.url,
                   target: "_blank" ) %>
   </div>
-  <div> Name: <%= order.name %> </div>
-  <div>
+  <div class="col-xs-12" > <strong> <%= order.name %> </strong> </div>
+  <div class="col-xs-12">
     <%= link_to order.link, order.link  %>
   </div>
   <% if order.price && order.price > 0 %>
@@ -14,6 +14,7 @@
   <% if order.customer_name && order.customer_name.length > 0 %>
     <div> customer name: <%= order.customer_name %> </div>
   <% end %>
+  <br>
   <%= link_to "Edit", edit_order_path(order), class: "btn btn-primary" %>
   <%= link_to "Delete", order_path(order), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
 </div>

@@ -1,16 +1,16 @@
 <%= form_for @order,  html: { multipart: true } do |f| %>
   <div class="form-group">
-    <%= f.label "Name of item" %>
+    <%= f.label "Name and Description ( Tên và Mô tả )" %>
     <%= f.text_field :name, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label "Link/Url" %>
+    <%= f.label "Website link/url ( url trang web )" %>
     <%= f.text_field :link, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label "Price" %>
+    <%= f.label "Price ( Giá bán )" %>
     <%= f.text_field :price, class: "form-control" %>
   </div>
 
