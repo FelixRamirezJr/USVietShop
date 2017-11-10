@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
   def self.packages
     #Product.distinct.pluck(:package_name)
-    Order.select("distinct name").pluck(:package_name).uniq.reverse.compact
+    Order.order(created_at: :desc).pluck(:package_name).uniq
   end
 
   def set_extras
