@@ -126,7 +126,7 @@ module Api
       end
 
       def symbolize
-        params = params.symbolize_keys
+        params[:product] = params[:product].symbolize_keys
       end
 
     end
