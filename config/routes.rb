@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         match '/sell_one', to: "products#sell_one", via: "GET"
         match '/add_one', to: "products#add_one", via: "GET"
         match '/set_final', to: "products#set_final", via: "GET"
-        match '/create_from_copy', to: "products#create_from_copy", via: [:get,:post]
+        match '/create_from_copy', to: "products#create_from_copy", via: "POST"
       end
     end
 
