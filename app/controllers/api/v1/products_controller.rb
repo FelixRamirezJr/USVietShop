@@ -126,8 +126,14 @@ module Api
       end
 
       def symbolize
+        puts "BEFORE symbolize is called"
+        puts params.inspect
         params = params.symbolize_keys
+        puts "After first symbol"
+        puts params.inspect
         params[:product] = JSON.parse(params[:product]).symbolize_keys
+        puts "After last symbil"
+        puts params.inspect
       end
 
     end
