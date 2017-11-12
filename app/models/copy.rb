@@ -1,15 +1,16 @@
 module Copy
   module_function
-  def post_api(url, params)
+  def post_api(api_url, params)
     puts "In post API with #{params}"
-    uri = URI(url)
-    req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-    req.body = params.to_json
-    puts "About to make res"
-    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-      http.request(req)
-    end
-    puts "end of res"
+    puts "URL"
+    puts api_url
+    url = URI.parse(api_url)
+    req = Net::HTTP::Post.new(url.request_uri, 'Content-Type' => 'application/json')
+    req.set_form_data(params)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    response = http.request(req)
+    puts response
   end
 
   def prepare_and_send(pk_name = nil, url = nil)
