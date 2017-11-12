@@ -5,6 +5,7 @@ module Api
 
       before_action :get_bool_params, only: [:index]
       before_action :selectedPackage, only: [:index]
+      before_action :symbolize, only: [:create_from_copy]
       skip_before_action  :verify_authenticity_token
 
       respond_to :json
@@ -122,6 +123,10 @@ module Api
       def to_bool( myVal )
         return true if myVal == "true"
         return false if myVal == "false"
+      end
+
+      def symbolize
+        params = params.symbolize_keys
       end
 
     end
