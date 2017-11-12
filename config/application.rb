@@ -16,6 +16,9 @@ module USVietShop
     # -- all .rb files in that directory are automatically loaded.
     SHOP_URL = "https://us-viet-shop.herokuapp.com/"
     INVENTORY_URL = "https://us-viet-inventory.herokuapp.com/"
+    API_URL = "api/v1/"
+    SHOP_API_URL = SHOP_URL + API_URL
+    INVENTORY_API_URL = INVENTORY_URL + API_URL
     ADMIN_EMAIL = "stella.hau.ramirez@gmail.com"
   end
 end
