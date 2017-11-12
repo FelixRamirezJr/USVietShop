@@ -14,7 +14,7 @@ module ProductsHelper
       sell_price_total = sell_price_total + ( product.sell_price * product.quantity )
       @shipping_total =  @shipping_total + (product.shipping_price)
     end
-    
+
     @price_total = price_total
     @total = sell_price_total
     @revenue =  sell_price_total - ( price_total + @shipping_total )

@@ -14,5 +14,8 @@ module USVietShop
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    SHOP_URL = "https://us-viet-shop.herokuapp.com/"
+    INVENTORY_URL = "https://us-viet-inventory.herokuapp.com/"
+    ADMIN_EMAIL = "stella.hau.ramirez@gmail.com"
   end
 end

@@ -1,6 +1,7 @@
 require 'csv'
 
 class Product < ApplicationRecord
+  include Copy
   belongs_to :user
 
   validates :name, presence: true
@@ -22,8 +23,18 @@ class Product < ApplicationRecord
   end
 
   def self.packages
-    #Product.distinct.pluck(:package_name)
     Product.order(created_at: :desc).pluck(:package_name).uniq
+  end
+
+
+  def self.send_to_inventory(pk_name = nil)
+    return "Make sure to supply a valid package_name" if !packages.include?(pk_name)
+    Copy.send(pk_name, USVietShop::Application::INVENTORY_URL + "/create_from_copy")
+  end
+
+  def self.send_to_shop(pk_name = nil)
+    return "Make sure to supply a valid package_name" if !packages.include?(pk_name)
+    Copy.send(pk_name, USVietShop::Application::SHOP_URL + "/create_from_copy")
   end
 
   def set_extras

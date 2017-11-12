@@ -8,6 +8,16 @@ module Api
 
       respond_to :json
 
+      def create_from_copy
+        user = User.find_by_email(USVietShop::Application::ADMIN_EMAIL)
+        product = user.products.new(params)
+        if product.save!
+          render json: {message: "Success"}
+        else
+          render json: {message: "Fail"}
+        end
+      end
+
       def show
         @product = Product.find( params[:id] )
         render json: {product: @product}
@@ -19,7 +29,7 @@ module Api
 
       def sold
         @product = Product.find( params[:id] )
-        @product.update_columns(sold: true, remaining_quantity: 0 )
+        @product.update_columns(sold: true, remaining_quantity: 0)
         render json: { success: "ok" }
       end
 
