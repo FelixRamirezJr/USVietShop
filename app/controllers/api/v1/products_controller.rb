@@ -5,7 +5,7 @@ module Api
 
       before_action :get_bool_params, only: [:index]
       before_action :selectedPackage, only: [:index]
-      skip_before_filter  :verify_authenticity_token
+      skip_before_action  :verify_authenticity_token
 
       respond_to :json
 
