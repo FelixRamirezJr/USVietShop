@@ -5,15 +5,17 @@ module Api
 
       before_action :get_bool_params, only: [:index]
       before_action :selectedPackage, only: [:index]
-      before_action :symbolize, only: [:create_from_copy]
+      #before_action :symbolize, only: [:create_from_copy]
       skip_before_action  :verify_authenticity_token
 
       respond_to :json
 
       def create_from_copy
+        puts 'in create'
+        puts params["product"]
         user = User.find_by_email(USVietShop::Application::ADMIN_EMAIL)
-        product = user.products.new(product_params)
-        if product.save!
+        product = user.products.new(JSON.parse(params["product"]))
+        if product.save(validate: false)
           render json: {message: "Success"}
         else
           render json: {message: "Fail"}
