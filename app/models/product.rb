@@ -29,12 +29,12 @@ class Product < ApplicationRecord
 
   def self.send_to_inventory(pk_name = nil)
     return "Make sure to supply a valid package_name" if !packages.include?(pk_name)
-    Copy.send(pk_name, USVietShop::Application::INVENTORY_URL + "/create_from_copy")
+    Copy.prepare_and_send(pk_name, USVietShop::Application::INVENTORY_URL + "/create_from_copy")
   end
 
   def self.send_to_shop(pk_name = nil)
     return "Make sure to supply a valid package_name" if !packages.include?(pk_name)
-    Copy.send(pk_name, USVietShop::Application::SHOP_URL + "/create_from_copy")
+    Copy.prepare_and_send(pk_name, USVietShop::Application::SHOP_URL + "/create_from_copy")
   end
 
   def set_extras
