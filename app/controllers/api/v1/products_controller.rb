@@ -126,7 +126,8 @@ module Api
       end
 
       def symbolize
-        params[:product] = params[:product].symbolize_keys
+        params = params.symbolize_keys
+        params[:product] = JSON.parse(params[:product]).symbolize_keys
       end
 
     end

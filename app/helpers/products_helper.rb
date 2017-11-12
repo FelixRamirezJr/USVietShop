@@ -30,7 +30,8 @@ module ProductsHelper
                                     :dong, :special_order, :remaining_quantity,
                                     :shipping_price, :weight,
                                     :package_name, :customer_name, :customer_birthdate,
-                                    :customer_phone_number, :delivery_time, :paid, :remote_picture_url )
+                                    :customer_phone_number, :delivery_time, :paid, :remote_picture_url,
+                                    :created_at, :updated_at, :tax, :final_price)
   end
 
 end

@@ -12,7 +12,11 @@ module Copy
 
   def prepare_and_send(pk_name = nil, url = nil)
     Product.where(package_name: pk_name).each do |pro|
-       puts post_api(url, {product: pro.attributes.except("id","picture","user_id").merge({"remote_picture_url" => pro.picture.url})})
+       puts post_api(url, {product: pro.attributes.except("id","picture","user_id")
+                                       .merge({"remote_picture_url" => pro.picture.url})
+                                       .to_json
+                           }
+                     )
      end
   end
 end
