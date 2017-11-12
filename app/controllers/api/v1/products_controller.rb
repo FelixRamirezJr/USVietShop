@@ -11,7 +11,7 @@ module Api
 
       def create_from_copy
         user = User.find_by_email(USVietShop::Application::ADMIN_EMAIL)
-        product = user.products.new(params)
+        product = user.products.new(product_params)
         if product.save!
           render json: {message: "Success"}
         else

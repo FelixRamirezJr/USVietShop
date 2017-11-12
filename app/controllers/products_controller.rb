@@ -41,15 +41,4 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
-
-  def product_params
-    params.require(:product).permit(:name, :price, :quantity, :picture,
-                                    :sell_price, :condition, :description,
-                                    :dong, :special_order, :remaining_quantity,
-                                    :shipping_price, :weight,
-                                    :package_name, :customer_name, :customer_birthdate,
-                                    :customer_phone_number, :delivery_time, :paid )
-  end
-
 end
