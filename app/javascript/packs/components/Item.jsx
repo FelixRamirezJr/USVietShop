@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const itemStyle = {
-  borderBottom: "1px solid grey",
   padding: 5,
   wordBreak: 'break-word'
 };
@@ -23,6 +22,9 @@ const routes = {
   edit: "/products/:id/edit",
   show: "/products/:id"
 }
+const divStyles = {
+  float: "left"
+}
 
 export default class Item extends React.Component {
 
@@ -32,6 +34,7 @@ export default class Item extends React.Component {
       status: "",
       statusButton: "Sold",
       remaining_quantity: 0,
+      paid: this.props.product.paid
     };
   }
 
@@ -134,6 +137,23 @@ export default class Item extends React.Component {
     }
   }
 
+  markAsPaid = () => {
+    var payStatus = this.state.paid ? true : false;
+    if( this.state.paid ) {
+      var cc = confirm("Are you sure you want to mark as unpaid?");
+      if( !cc ){ return false; }
+    }
+    fetch('/api/v1/toggle_paid?id=' + this.props.product.id)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ paid: !payStatus });
+      return "Okay";
+    })
+    .catch(() => {
+      reject('Error problems searching!')
+    });
+  }
+
   render() {
     var status_button;
     // Set sold status
@@ -143,7 +163,7 @@ export default class Item extends React.Component {
       status_button =  <button onClick={this.sold}
                         style={buttonStyles}
                         className="btn btn-success">
-                        Sold
+                       Sold
                       </button>;
     }
 
@@ -153,8 +173,14 @@ export default class Item extends React.Component {
     }
 
     var paid = null;
-    if ( this.props.product.paid ) {
-      paid = <p> <strong> <i> PAID </i> </strong> </p>;
+    if ( this.state.paid ) {
+      paid = <span style={buttonStyles} onClick={this.markAsPaid}> <strong> <i> PAID </i> </strong> </span>;
+    } else {
+      paid =  <button onClick={this.markAsPaid}
+                        style={buttonStyles}
+                        className="btn btn-info">
+                        Mark as Paid
+                      </button>;
     }
 
     var customer_name = null;
@@ -181,35 +207,38 @@ export default class Item extends React.Component {
     var cc = null;
     if( this.props.product.quantity > 1 ) {
       cc = this.calculate_current( this.props.product.sell_price, this.state.quantity, this.state.remaining_quantity );
-      currently_earned = <i> Currently Earned: ${cc} </i>;
+      currently_earned = <span> | <i> Currently Earned: ${cc} </i> </span>;
     }
 
     return (
       <div style={itemStyle} >
-        <div className="col-sm-5">
+        <div className="col-sm-3" style={divStyles}>
           <a href={this.props.product.picture.url} target="_blank" >
             <img style={imgStyle} src={this.props.product.picture.url}/>
           </a>
         </div>
-        <div className="col-sm-12">
+        <div className="col-sm-9" style={divStyles}>
           <p> <strong> {this.props.product.name} </strong> </p>
           { description }
-          <p> Original Price: $ { this.numberWithCommas( this.props.product.price ) } </p>
-          <p> Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) }  </p>
-          <p> Dong: { this.numberWithCommas( this.props.product.dong) } đ  </p>
-          <p> Condition: {this.props.product.condition} </p>
+          <p>
+              Original Price: $ { this.numberWithCommas( this.props.product.price ) } |
+              Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) } |
+              Dong: { this.numberWithCommas( this.props.product.dong) } đ
+          </p>
           <p> Quantity:
             { this.state.remaining_quantity }/{ this.state.quantity }
             { currently_earned }
           </p>
-          <p> Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } </p>
-          <p> Weight: { this.props.product.weight } lbs </p>
-          { paid }
+          <p>
+            Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } |
+            Weight: { this.props.product.weight } lbs
+          </p>
           { delivery_time }
           { customer_name }
           { customer_phone_number }
           { customer_birthdate }
-
+        </div>
+        <div className="col-sm-12">
           <button onClick={this.edit}
                   style={buttonStyles}
                   className="btn btn-primary"
@@ -236,9 +265,10 @@ export default class Item extends React.Component {
                   className="btn btn-warning">
            -
           </button>
+          { paid }
           { status_button }
         </div>
-
+        <hr />
       </div>
     );
   }

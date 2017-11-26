@@ -37,6 +37,14 @@ module Api
         render json: { success: "ok" }
       end
 
+      # This will toggle paid
+      def toggle_paid
+        @product = Product.find( params[:id] )
+        @product.update_column(:paid, !@product.paid)
+        @product.reload
+        render json: { paid: @product.paid }
+      end
+
       def get_sold
         @product = Product.where(sold: true)
         renderProducts
