@@ -25,6 +25,9 @@ const routes = {
 const divStyles = {
   float: "left"
 }
+const lastRow = {
+  marginTop: 10
+}
 
 export default class Item extends React.Component {
 
@@ -212,61 +215,65 @@ export default class Item extends React.Component {
 
     return (
       <div style={itemStyle} >
-        <div className="col-sm-3" style={divStyles}>
-          <a href={this.props.product.picture.url} target="_blank" >
-            <img style={imgStyle} src={this.props.product.picture.url}/>
-          </a>
+        <div className="row">
+          <div className="col-sm-3" style={divStyles}>
+            <a href={this.props.product.picture.url} target="_blank" >
+              <img style={imgStyle} src={this.props.product.picture.url}/>
+            </a>
+          </div>
+          <div className="col-sm-9" style={divStyles}>
+            <p> <strong> {this.props.product.name} </strong> </p>
+            { description }
+            <p>
+                Original Price: $ { this.numberWithCommas( this.props.product.price ) } |
+                Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) } |
+                Dong: { this.numberWithCommas( this.props.product.dong) } đ
+            </p>
+            <p> Quantity:
+              { this.state.remaining_quantity }/{ this.state.quantity }
+              { currently_earned }
+            </p>
+            <p>
+              Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } |
+              Weight: { this.props.product.weight } lbs
+            </p>
+            { delivery_time }
+            { customer_name }
+            { customer_phone_number }
+            { customer_birthdate }
+          </div>
         </div>
-        <div className="col-sm-9" style={divStyles}>
-          <p> <strong> {this.props.product.name} </strong> </p>
-          { description }
-          <p>
-              Original Price: $ { this.numberWithCommas( this.props.product.price ) } |
-              Sell Price: $ { this.numberWithCommas( this.props.product.sell_price) } |
-              Dong: { this.numberWithCommas( this.props.product.dong) } đ
-          </p>
-          <p> Quantity:
-            { this.state.remaining_quantity }/{ this.state.quantity }
-            { currently_earned }
-          </p>
-          <p>
-            Shipping Price: { this.numberWithCommas( this.props.product.shipping_price) } |
-            Weight: { this.props.product.weight } lbs
-          </p>
-          { delivery_time }
-          { customer_name }
-          { customer_phone_number }
-          { customer_birthdate }
-        </div>
-        <div className="col-sm-12">
-          <button onClick={this.edit}
-                  style={buttonStyles}
-                  className="btn btn-primary"
-                  type="button">
-            Edit
-          </button>
-          <button onClick={this.delete}
-                  style={buttonStyles}
-                  className="btn btn-danger">
-                  Delete
-          </button>
-          <button onClick={this.show}
-                  style={buttonStyles}
-                  className="btn btn-inverse">
-          Link
-          </button>
-          <button onClick={this.addOne}
-                  style={buttonStyles}
-                  className="btn btn-warning">
-           +
-          </button>
-          <button onClick={this.sellOne}
-                  style={buttonStyles}
-                  className="btn btn-warning">
-           -
-          </button>
-          { paid }
-          { status_button }
+        <div className="row" style={lastRow}>
+          <div className="col-sm-12">
+            <button onClick={this.edit}
+                    style={buttonStyles}
+                    className="btn btn-primary"
+                    type="button">
+              Edit
+            </button>
+            <button onClick={this.delete}
+                    style={buttonStyles}
+                    className="btn btn-danger">
+                    Delete
+            </button>
+            <button onClick={this.show}
+                    style={buttonStyles}
+                    className="btn btn-inverse">
+            Link
+            </button>
+            <button onClick={this.addOne}
+                    style={buttonStyles}
+                    className="btn btn-warning">
+             +
+            </button>
+            <button onClick={this.sellOne}
+                    style={buttonStyles}
+                    className="btn btn-warning">
+             -
+            </button>
+            { paid }
+            { status_button }
+          </div>
         </div>
         <hr />
       </div>
