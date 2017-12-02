@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   include Copy
   belongs_to :user
 
+
   validates :name, presence: true
   validates :price, presence: true
   validates :sell_price, presence: true
@@ -47,7 +48,10 @@ class Product < ApplicationRecord
   end
 
   def set_defaults
-    self.update_column(:remaining_quantity, self.quantity)
+    self.update_columns(remaining_quantity: self.quantity)
+    if self.slug.nil?
+      self.update_columns(slug: Product.create_slug)
+    end
   end
 
   def self.to_csv(total = 0, sell_total = 0 )
@@ -60,6 +64,14 @@ class Product < ApplicationRecord
         csv << attributes.map{ |attr| pro.send(attr) }
       end
       csv << [ "", total, sell_total ]
+    end
+  end
+
+  # Will Set a unique slug
+  def self.create_slug
+    while true do
+      slug = SecureRandom.hex(5)
+      return slug if !Product.find_by_slug(slug)
     end
   end
 

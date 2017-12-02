@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026192130) do
+ActiveRecord::Schema.define(version: 20171202201242) do
 
   create_table "finals", force: :cascade do |t|
     t.text "package_name"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(version: 20171026192130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["package_name"], name: "index_finals_on_package_name"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -45,16 +57,16 @@ ActiveRecord::Schema.define(version: 20171026192130) do
 
   create_table "products", force: :cascade do |t|
     t.text "name"
-    t.decimal "price", precision: 8, scale: 2
-    t.decimal "tax", precision: 8, scale: 2
-    t.decimal "final_price", precision: 8, scale: 2
+    t.decimal "price"
+    t.decimal "tax"
+    t.decimal "final_price"
     t.decimal "dong"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.string "picture"
-    t.decimal "sell_price", precision: 8, scale: 2
+    t.decimal "sell_price"
     t.text "condition", default: "New"
     t.boolean "sold", default: false
     t.text "description"
@@ -68,6 +80,8 @@ ActiveRecord::Schema.define(version: 20171026192130) do
     t.text "customer_phone_number"
     t.text "delivery_time"
     t.boolean "paid", default: false
+    t.text "slug"
+    t.index ["slug"], name: "index_products_on_slug"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
