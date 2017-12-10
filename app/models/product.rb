@@ -70,7 +70,7 @@ class Product < ApplicationRecord
   # Will Set a unique slug
   def self.create_slug
     while true do
-      slug = SecureRandom.hex(5)
+      slug = (0...6).map { (65 + rand(26)).chr }.join
       return slug if !Product.find_by_slug(slug)
     end
   end
