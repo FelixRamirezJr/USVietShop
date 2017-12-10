@@ -15,7 +15,8 @@ const imgStyle = {
 const buttonStyles = {
   marginRight: 5,
   cursor: 'hand',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  marginBottom: 4
 }
 
 const routes = {

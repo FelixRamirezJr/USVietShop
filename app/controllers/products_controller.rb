@@ -1,6 +1,20 @@
 class ProductsController < ApplicationController
   include ProductsHelper
-  before_action :authenticate_user!, except: [:show]
+  include Devise::Controllers::Helpers
+  before_action :authenticate_user!, except: [:show, :login_user]
+  protect_from_forgery :except => [:login_user]
+
+
+  def login_user
+    value = params[:email].downcase
+    if @user = User.where('lower(email) = ? OR lower(username) = ?', value, value).try(:first)
+      sign_in @user
+      redirect_to root_url
+    else
+      flash[:warning] = "Incorrect Email or Name"
+      redirect_to request.referrer
+    end
+  end
 
   def index
   end

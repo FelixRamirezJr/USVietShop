@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :products
   get '/csv_products' => 'products#print_csv', as: :csv_products
+  post '/login' => 'products#login_user', as: :start_up
   root "products#index"
 
   resources :receipts
